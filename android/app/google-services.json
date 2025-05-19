@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "424354169530",
+    "project_id": "kagojkolom",
+    "storage_bucket": "kagojkolom.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:424354169530:android:2a4e6666f64f094a753883",
+        "android_client_info": {
+          "package_name": "com.example.kagojkolom"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBh_ef3Dt3baN8px-wrliqfdqrxniUwgOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

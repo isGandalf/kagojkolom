@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/notes/notes_parent.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/custom_note_icon.dart';
+
+class Notes extends StatelessWidget {
+  const Notes({super.key, required this.sampleNotes});
+
+  final List<Map<String, dynamic>> sampleNotes;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: sampleNotes.length,
+      itemBuilder: (context, index) {
+        final note = sampleNotes[index];
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (context) => NotesParent()));
+          },
+          child: Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    note['title'],
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+                  ),
+                  Text(
+                    note['content'],
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(note['date'].toString()),
+                      Spacer(),
+                      Row(
+                        children: [
+                          CustomNoteIcon(
+                            onPressed: () {},
+                            icon: Icon(Icons.share),
+                          ),
+                          CustomNoteIcon(
+                            onPressed: () {},
+                            icon: Icon(Icons.favorite),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
