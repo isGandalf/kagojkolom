@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
+import 'package:kagojkolom/features/auth/domain/entity/user_entity.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_dialog_box_with_one_button.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_elevated_button.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:kagojkolom/shared/widgets/custom_dialog_box_with_one_button.dart';
+import 'package:kagojkolom/shared/widgets/custom_elevated_button.dart';
+import 'package:kagojkolom/shared/widgets/custom_text_form_field.dart';
+import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -52,6 +54,8 @@ class _LoginFormState extends State<LoginForm> {
             (route) => false,
           );
         } else if (state is LoginSuccessActionState) {
+          final userEntity = state.userEntity;
+          context.read<UserBloc>().add(LoadUserEvent(userEntity: userEntity));
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => HomepageParent()),

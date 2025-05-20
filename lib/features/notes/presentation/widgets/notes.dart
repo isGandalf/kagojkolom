@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/notes/notes_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_note_icon.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_parent.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/custom_note_icon.dart';
 
 class Notes extends StatelessWidget {
   const Notes({super.key, required this.sampleNotes});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/dot_indicator.dart';
+import 'package:kagojkolom/shared/widgets/dot_indicator.dart';
 
 const OutlineInputBorder borderDark = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -42,6 +42,7 @@ const TextStyle errorTextStyle = TextStyle(
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColorsDark.scaffold,
+  appBarTheme: AppBarTheme(color: AppColorsDark.scaffold),
   fontFamily: 'Nunito',
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
@@ -100,6 +101,7 @@ final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: 'Nunito',
   scaffoldBackgroundColor: const Color.fromARGB(255, 223, 223, 223),
+  appBarTheme: AppBarTheme(color: AppColorsLight.scaffold),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
       color: AppColorsLight.textColor,

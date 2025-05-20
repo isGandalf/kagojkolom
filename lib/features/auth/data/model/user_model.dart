@@ -15,7 +15,7 @@ class UserModel {
     this.profilePictureUrl,
   });
 
-  // convert to entity
+  // convert from model to entity
   UserEntity toEntity() {
     return UserEntity(
       userId: userId,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_note_icon.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/custom_note_icon.dart';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});

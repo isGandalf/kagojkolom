@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/signup/signup_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_dialog_box_with_one_button.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_elevated_button.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:kagojkolom/shared/widgets/custom_dialog_box_with_one_button.dart';
+import 'package:kagojkolom/shared/widgets/custom_elevated_button.dart';
+import 'package:kagojkolom/shared/widgets/custom_text_form_field.dart';
 import 'package:logger/logger.dart';
 
 class SignupForm extends StatefulWidget {

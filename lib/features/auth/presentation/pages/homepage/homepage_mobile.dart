@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/bottom_nav_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/floating_button.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/search_field.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/tab_view.dart';
+import 'package:kagojkolom/shared/widgets/search_field.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/tab_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/user_header.dart';
 
 class HomepageMobile extends StatefulWidget {

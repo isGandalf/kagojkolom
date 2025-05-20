@@ -10,6 +10,8 @@ import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
+import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 import 'package:kagojkolom/firebase_options.dart';
 
 void main() async {
@@ -35,6 +37,7 @@ void main() async {
       providers: [
         BlocProvider(create: (context) => SignupBloc(userDomainUsecases)),
         BlocProvider(create: (context) => LoginBloc(userDomainUsecases)),
+        BlocProvider(create: (context) => UserBloc()),
       ],
       child: KagojKolom(),
     ),
@@ -50,7 +53,7 @@ class KagojKolom extends StatelessWidget {
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 1200;
         return MaterialApp(
-          theme: isDesktop ? darkTheme : lightTheme,
+          theme: darkTheme,
           debugShowCheckedModeBanner: false,
           home: HomepageParent(),
         );
