@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/notes.dart';
 
 class TabView extends StatefulWidget {

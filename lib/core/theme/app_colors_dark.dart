@@ -19,4 +19,5 @@ class AppColorsDark {
   static const textPrimary = Colors.white;
   static const hintText = AppColorsCommon.hint;
   static const errorText = AppColorsCommon.error;
+  static const listTileHoverColor = Color.fromRGBO(15, 18, 26, 1);
 }

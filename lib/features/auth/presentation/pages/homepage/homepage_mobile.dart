@@ -27,19 +27,19 @@ class _HomepageMobileState extends State<HomepageMobile> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                UserHeader(),
-                SizedBox(height: 20),
+                const UserHeader(),
+                const SizedBox(height: 20),
                 SearchField(searchController: _searchController),
-                SizedBox(height: 10),
-                TabView(),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
+                const TabView(),
+                const SizedBox(height: 10),
               ],
             ),
           ),
         ),
-        floatingActionButton: FloatingButton(),
+        floatingActionButton: const FloatingButton(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        bottomNavigationBar: BottomNavBar(),
+        bottomNavigationBar: const BottomNavBar(),
       ),
     );
   }

@@ -12,17 +12,17 @@ class SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: _searchController,
-      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(vertical: 20),
         hintText: 'Search',
-        hintStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-        prefixIcon: Icon(Icons.search),
+        hintStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+        prefixIcon: const Icon(Icons.search),
         suffixIcon: IconButton(
           onPressed: () {
             _searchController.clear();
           },
-          icon: Icon(Icons.clear),
+          icon: const Icon(Icons.clear),
         ),
       ),
     );

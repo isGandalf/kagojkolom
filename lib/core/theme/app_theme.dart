@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/shared/widgets/dot_indicator.dart';
@@ -42,7 +43,7 @@ const TextStyle errorTextStyle = TextStyle(
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColorsDark.scaffold,
-  appBarTheme: AppBarTheme(color: AppColorsDark.scaffold),
+  appBarTheme: AppBarTheme(color: AppColorsDark.scaffold, toolbarHeight: 72),
   fontFamily: 'Nunito',
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
@@ -95,13 +96,18 @@ final ThemeData darkTheme = ThemeData(
     backgroundColor: AppColorsDark.noteIcon,
     foregroundColor: Colors.white,
   ),
+  listTileTheme: ListTileThemeData(
+    selectedTileColor: AppColorsCommon.primaryBlue,
+    selectedColor: AppColorsDark.textPrimary,
+    mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
+  ),
 );
 
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   fontFamily: 'Nunito',
   scaffoldBackgroundColor: const Color.fromARGB(255, 223, 223, 223),
-  appBarTheme: AppBarTheme(color: AppColorsLight.scaffold),
+  appBarTheme: AppBarTheme(color: AppColorsLight.scaffold, toolbarHeight: 72),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(
       color: AppColorsLight.textColor,
@@ -120,6 +126,7 @@ final ThemeData lightTheme = ThemeData(
     ),
   ),
   inputDecorationTheme: InputDecorationTheme(
+    contentPadding: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
     filled: true,
     fillColor: const Color.fromARGB(255, 255, 255, 255),
     hintStyle: hintTextStyle,
@@ -151,5 +158,10 @@ final ThemeData lightTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: AppColorsDark.noteIcon,
     foregroundColor: Colors.white,
+  ),
+  listTileTheme: ListTileThemeData(
+    selectedTileColor: AppColorsCommon.primaryBlue,
+    selectedColor: AppColorsDark.textPrimary,
+    mouseCursor: WidgetStateProperty.all(SystemMouseCursors.click),
   ),
 );

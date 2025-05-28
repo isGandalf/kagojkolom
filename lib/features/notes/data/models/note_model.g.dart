@@ -42,28 +42,33 @@ const NoteModelSchema = CollectionSchema(
       name: r'isPrivate',
       type: IsarType.bool,
     ),
-    r'noteContent': PropertySchema(
+    r'isSynced': PropertySchema(
       id: 5,
+      name: r'isSynced',
+      type: IsarType.bool,
+    ),
+    r'noteContent': PropertySchema(
+      id: 6,
       name: r'noteContent',
       type: IsarType.string,
     ),
     r'noteTitle': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'noteTitle',
       type: IsarType.string,
     ),
     r'ownerId': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'ownerId',
       type: IsarType.string,
     ),
     r'sharedWithUserIds': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'sharedWithUserIds',
       type: IsarType.stringList,
     ),
     r'updatedAt': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'updatedAt',
       type: IsarType.dateTime,
     )
@@ -112,11 +117,12 @@ void _noteModelSerialize(
   writer.writeBool(offsets[2], object.isDeleted);
   writer.writeBool(offsets[3], object.isFavourite);
   writer.writeBool(offsets[4], object.isPrivate);
-  writer.writeString(offsets[5], object.noteContent);
-  writer.writeString(offsets[6], object.noteTitle);
-  writer.writeString(offsets[7], object.ownerId);
-  writer.writeStringList(offsets[8], object.sharedWithUserIds);
-  writer.writeDateTime(offsets[9], object.updatedAt);
+  writer.writeBool(offsets[5], object.isSynced);
+  writer.writeString(offsets[6], object.noteContent);
+  writer.writeString(offsets[7], object.noteTitle);
+  writer.writeString(offsets[8], object.ownerId);
+  writer.writeStringList(offsets[9], object.sharedWithUserIds);
+  writer.writeDateTime(offsets[10], object.updatedAt);
 }
 
 NoteModel _noteModelDeserialize(
@@ -131,12 +137,13 @@ NoteModel _noteModelDeserialize(
   object.isDeleted = reader.readBool(offsets[2]);
   object.isFavourite = reader.readBool(offsets[3]);
   object.isPrivate = reader.readBool(offsets[4]);
-  object.noteContent = reader.readString(offsets[5]);
+  object.isSynced = reader.readBool(offsets[5]);
+  object.noteContent = reader.readString(offsets[6]);
   object.noteId = id;
-  object.noteTitle = reader.readString(offsets[6]);
-  object.ownerId = reader.readString(offsets[7]);
-  object.sharedWithUserIds = reader.readStringList(offsets[8]) ?? [];
-  object.updatedAt = reader.readDateTimeOrNull(offsets[9]);
+  object.noteTitle = reader.readString(offsets[7]);
+  object.ownerId = reader.readString(offsets[8]);
+  object.sharedWithUserIds = reader.readStringList(offsets[9]) ?? [];
+  object.updatedAt = reader.readDateTimeOrNull(offsets[10]);
   return object;
 }
 
@@ -158,14 +165,16 @@ P _noteModelDeserializeProp<P>(
     case 4:
       return (reader.readBool(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 9:
+      return (reader.readStringList(offset) ?? []) as P;
+    case 10:
       return (reader.readDateTimeOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -417,6 +426,16 @@ extension NoteModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'isPrivate',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<NoteModel, NoteModel, QAfterFilterCondition> isSyncedEqualTo(
+      bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isSynced',
         value: value,
       ));
     });
@@ -1238,6 +1257,18 @@ extension NoteModelQuerySortBy on QueryBuilder<NoteModel, NoteModel, QSortBy> {
     });
   }
 
+  QueryBuilder<NoteModel, NoteModel, QAfterSortBy> sortByIsSynced() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSynced', Sort.asc);
+    });
+  }
+
+  QueryBuilder<NoteModel, NoteModel, QAfterSortBy> sortByIsSyncedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSynced', Sort.desc);
+    });
+  }
+
   QueryBuilder<NoteModel, NoteModel, QAfterSortBy> sortByNoteContent() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'noteContent', Sort.asc);
@@ -1349,6 +1380,18 @@ extension NoteModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<NoteModel, NoteModel, QAfterSortBy> thenByIsSynced() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSynced', Sort.asc);
+    });
+  }
+
+  QueryBuilder<NoteModel, NoteModel, QAfterSortBy> thenByIsSyncedDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isSynced', Sort.desc);
+    });
+  }
+
   QueryBuilder<NoteModel, NoteModel, QAfterSortBy> thenByNoteContent() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'noteContent', Sort.asc);
@@ -1442,6 +1485,12 @@ extension NoteModelQueryWhereDistinct
     });
   }
 
+  QueryBuilder<NoteModel, NoteModel, QDistinct> distinctByIsSynced() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isSynced');
+    });
+  }
+
   QueryBuilder<NoteModel, NoteModel, QDistinct> distinctByNoteContent(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1511,6 +1560,12 @@ extension NoteModelQueryProperty
   QueryBuilder<NoteModel, bool, QQueryOperations> isPrivateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'isPrivate');
+    });
+  }
+
+  QueryBuilder<NoteModel, bool, QQueryOperations> isSyncedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isSynced');
     });
   }
 

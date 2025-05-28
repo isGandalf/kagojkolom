@@ -26,6 +26,7 @@ class NoteModel {
   late bool isPrivate;
   late bool isFavourite;
   late List<String> sharedWithUserIds;
+  late bool isSynced;
 
   NoteModel();
 
@@ -43,23 +44,27 @@ class NoteModel {
       isFavourite: isFavourite,
       isDeleted: isDeleted,
       sharedWithUserIds: sharedWithUserIds,
+      isSynced: isSynced,
     );
   }
 
   // convert from entity to Model
   factory NoteModel.fromEntity(NoteEntity note) {
     final model = NoteModel();
-    model.noteId = note.noteId;
+    if (note.noteId != null) {
+      model.noteId = note.noteId!;
+    }
     model.noteTitle = note.noteTitle;
     model.noteContent = note.noteContent;
-    model.ownerId = note.ownerId;
-    model.createdAt = note.createdAt;
+    model.ownerId = note.ownerId ?? '';
+    model.createdAt = note.createdAt ?? DateTime.now();
     model.updatedAt = note.updatedAt;
     model.deletedAt = note.deletedAt;
     model.isDeleted = note.isDeleted;
     model.isPrivate = note.isPrivate;
     model.isFavourite = note.isFavourite;
     model.sharedWithUserIds = note.sharedWithUserIds;
+    model.isSynced = note.isSynced;
     return model;
   }
 }

@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kagojkolom/core/error/user_auth_errors.dart';
-import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/auth/data/model/user_model.dart';
 
 class UserAuth {

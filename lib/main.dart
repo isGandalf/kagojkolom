@@ -11,18 +11,30 @@ import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
+import 'package:kagojkolom/features/notes/data/models/note_model.dart';
+import 'package:kagojkolom/features/notes/data/repository/notes_data_repository.dart';
+import 'package:kagojkolom/features/notes/data/sources/notes_data_sources.dart';
+import 'package:kagojkolom/features/notes/domain/usecases/notes_usecases.dart';
+import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 import 'package:kagojkolom/firebase_options.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:isar/isar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  /*
+  =====================================================================================
+              F I R E B A S E (cloud db) - Initialization
+  =====================================================================================
+  */
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 
-  await firebaseAuth.signOut();
-
+  // User auth dependencies
   final userAuth = UserAuth(
     firebaseAuth: firebaseAuth,
     firebaseFirestore: firebaseFirestore,
@@ -32,12 +44,34 @@ void main() async {
     userDomainRepository: userDomainRepository,
   );
 
+  /*
+  =====================================================================================
+              I S A R (local db) - Initialization
+  =====================================================================================
+  */
+
+  final directory =
+      await getApplicationDocumentsDirectory(); // get local directory path
+  final isardb = await Isar.open([
+    NoteModelSchema,
+  ], directory: directory.path); // assign the path to isar schema
+
+  // Note dependencies
+  final notesDataSources = NotesDataSources(db: isardb);
+  final notesDomainRepository = NotesDataRepositoryImpl(
+    notesDataSources: notesDataSources,
+  );
+  final noteUsecases = NoteUsecases(
+    notesDomainRepository: notesDomainRepository,
+  );
+
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => SignupBloc(userDomainUsecases)),
         BlocProvider(create: (context) => LoginBloc(userDomainUsecases)),
         BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => NotesBloc(noteUsecases)),
       ],
       child: KagojKolom(),
     ),
@@ -55,7 +89,7 @@ class KagojKolom extends StatelessWidget {
         return MaterialApp(
           theme: darkTheme,
           debugShowCheckedModeBanner: false,
-          home: HomepageParent(),
+          home: LoginParent(),
         );
       },
     );

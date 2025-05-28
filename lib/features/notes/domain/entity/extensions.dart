@@ -10,6 +10,7 @@ extension NoteEntityCopyWith on NoteEntity {
     bool? isFavourite,
     bool? isDeleted,
     List<String>? sharedWithUserIds,
+    bool? isSynced,
   }) {
     return NoteEntity(
       noteId: noteId,
@@ -23,6 +24,7 @@ extension NoteEntityCopyWith on NoteEntity {
       isFavourite: isFavourite ?? this.isFavourite,
       isDeleted: isDeleted ?? this.isDeleted,
       sharedWithUserIds: sharedWithUserIds ?? this.sharedWithUserIds,
+      isSynced: isSynced ?? this.isSynced,
     );
   }
 }
