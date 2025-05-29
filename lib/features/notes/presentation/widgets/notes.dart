@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/custom_note_icon.dart';
 
 class Notes extends StatelessWidget {
-  const Notes({super.key, required this.sampleNotes});
+  const Notes({super.key, required this.noteList});
 
-  final List<Map<String, dynamic>> sampleNotes;
+  final List<NoteEntity> noteList;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: sampleNotes.length,
+      itemCount: noteList.length,
       itemBuilder: (context, index) {
-        final note = sampleNotes[index];
+        final note = noteList[index];
         return GestureDetector(
           onTap: () {
             Navigator.of(
@@ -26,17 +27,17 @@ class Notes extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    note['title'],
+                    note.noteTitle,
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
                   ),
                   Text(
-                    note['content'],
+                    note.noteContent,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                   SizedBox(height: 8),
                   Row(
                     children: [
-                      Text(note['date'].toString()),
+                      Text(note.createdAt.toString()),
                       Spacer(),
                       Row(
                         children: [

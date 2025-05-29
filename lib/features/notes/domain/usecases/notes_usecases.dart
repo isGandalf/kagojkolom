@@ -9,10 +9,10 @@ class NoteUsecases {
   NoteUsecases({required this.notesDomainRepository});
 
   // Fetch all notes
-  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesFromLocal() async {
-    final result = await notesDomainRepository.fetchNotesFromLocal();
+  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotes() async {
+    final result = await notesDomainRepository.fetchNotes();
     return result.fold(
-      (failure) => Left(FetchLocalNotesError(message: failure.toString())),
+      (failure) => Left(FetchNotesError(message: failure.toString())),
       (entity) => Right(entity),
     );
   }
@@ -31,11 +31,13 @@ class NoteUsecases {
       isDeleted: false,
       sharedWithUserIds: [],
       isSynced: false,
+      noteId: DateTime.now().millisecondsSinceEpoch,
+      createdAt: DateTime.now(),
     );
 
     final result = await notesDomainRepository.addNewNote(noteEntity);
     return result.fold(
-      (failure) => Left(AddNoteToLocalError(message: failure.toString())),
+      (failure) => Left(AddNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }
@@ -44,7 +46,7 @@ class NoteUsecases {
   Future<Either<NotesErrors, void>> updateNote(NoteEntity note) async {
     final result = await notesDomainRepository.updateNote(note);
     return result.fold(
-      (failure) => Left(UpdateNoteToLocalError(message: failure.toString())),
+      (failure) => Left(UpdateNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }
@@ -53,7 +55,7 @@ class NoteUsecases {
   Future<Either<NotesErrors, void>> deleteNote(int noteId) async {
     final result = await notesDomainRepository.deleteNote(noteId);
     return result.fold(
-      (failure) => Left(DeleteNoteFromLocalError(message: failure.toString())),
+      (failure) => Left(DeleteNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }

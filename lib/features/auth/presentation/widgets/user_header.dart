@@ -73,7 +73,7 @@ class UserHeader extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Test',
+                      'No user',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,

@@ -5,66 +5,146 @@ Isar DB (fetch)  -->  Model  -->  Entity  -->  UI (display)
 
 
 */
-import 'package:isar/isar.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 
-// run: dart run build_runner build --delete-conflicting-outputs
-// note: --delete-conflicting-outputs is added to ensure any previous builds are deleted before creating a new one
-
-part 'note_model.g.dart';
-
-@collection
 class NoteModel {
-  Id noteId = Isar.autoIncrement;
-  late String noteTitle;
-  late String noteContent;
-  late String ownerId;
-  late DateTime createdAt;
-  DateTime? updatedAt;
-  DateTime? deletedAt;
-  late bool isDeleted;
-  late bool isPrivate;
-  late bool isFavourite;
-  late List<String> sharedWithUserIds;
-  late bool isSynced;
+  final int noteId;
+  final String noteTitle;
+  final String noteContent;
+  final String? ownerId;
+  final DateTime createdAt;
+  final DateTime? updatedAt;
+  final DateTime? deletedAt;
+  final bool isPrivate;
+  final bool isFavourite;
+  final bool isDeleted;
+  final List<String> sharedWithUserIds;
+  final bool isSynced;
 
-  NoteModel();
+  NoteModel({
+    required this.noteId,
+    required this.noteTitle,
+    required this.noteContent,
+    this.ownerId,
+    required this.createdAt,
+    this.updatedAt,
+    this.deletedAt,
+    required this.isPrivate,
+    required this.isFavourite,
+    required this.isDeleted,
+    required this.sharedWithUserIds,
+    required this.isSynced,
+  });
 
-  // convert model to entity
+  // model to entity
   NoteEntity toEntity() {
     return NoteEntity(
       noteId: noteId,
       noteTitle: noteTitle,
       noteContent: noteContent,
-      ownerId: ownerId,
       createdAt: createdAt,
-      updatedAt: updatedAt,
-      deletedAt: deletedAt,
       isPrivate: isPrivate,
       isFavourite: isFavourite,
       isDeleted: isDeleted,
       sharedWithUserIds: sharedWithUserIds,
       isSynced: isSynced,
+      deletedAt: deletedAt,
+      updatedAt: updatedAt,
+      ownerId: ownerId,
     );
   }
 
-  // convert from entity to Model
-  factory NoteModel.fromEntity(NoteEntity note) {
-    final model = NoteModel();
-    if (note.noteId != null) {
-      model.noteId = note.noteId!;
-    }
-    model.noteTitle = note.noteTitle;
-    model.noteContent = note.noteContent;
-    model.ownerId = note.ownerId ?? '';
-    model.createdAt = note.createdAt ?? DateTime.now();
-    model.updatedAt = note.updatedAt;
-    model.deletedAt = note.deletedAt;
-    model.isDeleted = note.isDeleted;
-    model.isPrivate = note.isPrivate;
-    model.isFavourite = note.isFavourite;
-    model.sharedWithUserIds = note.sharedWithUserIds;
-    model.isSynced = note.isSynced;
-    return model;
+  // entity to model
+  factory NoteModel.fromEntity(NoteEntity entity) {
+    return NoteModel(
+      noteId: entity.noteId,
+      noteTitle: entity.noteTitle,
+      noteContent: entity.noteContent,
+      createdAt: entity.createdAt,
+      isPrivate: entity.isPrivate,
+      isFavourite: entity.isFavourite,
+      isDeleted: entity.isDeleted,
+      deletedAt: entity.deletedAt,
+      updatedAt: entity.updatedAt,
+      ownerId: entity.ownerId,
+      sharedWithUserIds: entity.sharedWithUserIds,
+      isSynced: entity.isSynced,
+    );
+  }
+
+  // from json
+  factory NoteModel.fromJson(Map<String, dynamic> jsonData) {
+    // converion safety fields
+    final createdAt = (jsonData['createdAt'] as Timestamp).toDate();
+    final updatedAt =
+        jsonData['updatedAt'] != null
+            ? (jsonData['updatedAt'] as Timestamp).toDate()
+            : null;
+    final deletedAt =
+        jsonData['deletedAt'] != null
+            ? (jsonData['deletedAt'] as Timestamp).toDate()
+            : null;
+
+    final sharedWithUserIds = List<String>.from(
+      jsonData['sharedWithUserIds'] ?? [],
+    );
+
+    return NoteModel(
+      noteId: jsonData['noteId'],
+      noteTitle: jsonData['noteTitle'],
+      noteContent: jsonData['noteContent'],
+      createdAt: createdAt,
+      ownerId: jsonData['ownerId'],
+      isPrivate: jsonData['isPrivate'],
+      isFavourite: jsonData['isFavourite'],
+      isDeleted: jsonData['isDeleted'],
+      deletedAt: deletedAt,
+      updatedAt: updatedAt,
+      sharedWithUserIds: sharedWithUserIds,
+      isSynced: jsonData['isSynced'],
+    );
+  }
+
+  // to json
+  Map<String, dynamic> toJson() {
+    final createdTimestamp = Timestamp.fromDate(createdAt);
+    final updatedTimestamp =
+        updatedAt != null ? Timestamp.fromDate(updatedAt!) : null;
+    final deletedTimestamp =
+        deletedAt != null ? Timestamp.fromDate(deletedAt!) : null;
+
+    return {
+      'noteId': noteId,
+      'noteTitle': noteTitle,
+      'noteContent': noteContent,
+      'createdAt': createdTimestamp,
+      'ownerId': ownerId,
+      'isPrivate': isPrivate,
+      'isFavourite': isFavourite,
+      'isDeleted': isDeleted,
+      'deletedAt': deletedTimestamp,
+      'updatedAt': updatedTimestamp,
+      'sharedWithUserIds': sharedWithUserIds,
+      'isSynced': isSynced,
+    };
+  }
+
+  NoteModel copyWith({String? ownerId}) {
+    return NoteModel(
+      noteId: noteId,
+      noteTitle: noteTitle,
+      noteContent: noteContent,
+      createdAt: createdAt,
+      ownerId: ownerId ?? this.ownerId,
+      isPrivate: isPrivate,
+      isFavourite: isFavourite,
+      isDeleted: isDeleted,
+      deletedAt: deletedAt,
+      updatedAt: updatedAt,
+      sharedWithUserIds: sharedWithUserIds,
+      isSynced: isSynced,
+    );
   }
 }

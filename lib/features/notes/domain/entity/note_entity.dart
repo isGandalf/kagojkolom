@@ -1,9 +1,9 @@
 class NoteEntity {
-  final int? noteId;
+  final int noteId;
   final String noteTitle;
   final String noteContent;
   final String? ownerId;
-  final DateTime? createdAt;
+  final DateTime createdAt;
   final DateTime? updatedAt;
   final DateTime? deletedAt;
   final bool isPrivate;
@@ -13,11 +13,11 @@ class NoteEntity {
   final bool isSynced;
 
   NoteEntity({
-    this.noteId,
+    required this.noteId,
     required this.noteTitle,
     required this.noteContent,
     this.ownerId,
-    this.createdAt,
+    required this.createdAt,
     this.updatedAt,
     this.deletedAt,
     required this.isPrivate,

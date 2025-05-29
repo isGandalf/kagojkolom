@@ -1,0 +1,39 @@
+[33mcommit 6388aedbba05f4f314f10aaf3f64cee0fbcb5dde[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: isGandalf <iamtanbirraj@gmail.com>
+Date:   Wed May 28 19:31:22 2025 +0530
+
+    publish
+
+lib/core/error/notes_errors.dart
+lib/core/theme/app_colors_dark.dart
+lib/core/theme/app_colors_light.dart
+lib/core/theme/app_theme.dart
+lib/features/auth/data/source/user_auth.dart
+lib/features/auth/presentation/pages/homepage/homepage_desktop.dart
+lib/features/auth/presentation/pages/homepage/homepage_mobile.dart
+lib/features/auth/presentation/pages/homepage/homepage_tablet.dart
+lib/features/auth/presentation/pages/login/login_form.dart
+lib/features/auth/presentation/widgets/custom_app_bar.dart
+lib/features/auth/presentation/widgets/desktop_left_column.dart
+lib/features/auth/presentation/widgets/tablet_drawer_icon.dart
+lib/features/auth/presentation/widgets/tablet_left_column.dart
+lib/features/auth/presentation/widgets/tablet_middle_column.dart
+lib/features/auth/presentation/widgets/tablet_right_column.dart
+lib/features/notes/data/models/note_model.dart
+lib/features/notes/data/models/note_model.g.dart
+lib/features/notes/data/repository/notes_data_repository.dart
+lib/features/notes/data/sources/notes_data_sources.dart
+lib/features/notes/domain/entity/extensions.dart
+lib/features/notes/domain/entity/note_entity.dart
+lib/features/notes/domain/repository/notes_domain_repository.dart
+lib/features/notes/domain/usecases/notes_usecases.dart
+lib/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart
+lib/features/notes/presentation/bloc/notes_bloc/notes_event.dart
+lib/features/notes/presentation/bloc/notes_bloc/notes_state.dart
+lib/features/notes/presentation/pages/notes/notes_parent.dart
+lib/features/notes/presentation/widgets/tab_view.dart
+lib/main.dart
+lib/shared/widgets/search_field.dart
+macos/Flutter/GeneratedPluginRegistrant.swift
+pubspec.lock
+pubspec.yaml

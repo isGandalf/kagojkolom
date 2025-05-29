@@ -12,11 +12,11 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
 
   // Fetch
   @override
-  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesFromLocal() async {
-    final result = await notesDataSources.fetchNotesFromLocal();
+  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotes() async {
+    final result = await notesDataSources.fetchNotes();
 
     return result.fold(
-      (failure) => Left(FetchLocalNotesError(message: failure.toString())),
+      (failure) => Left(FetchNotesError(message: failure.toString())),
       (entity) {
         final noteEntity = entity.map((notes) => notes.toEntity()).toList();
         return Right(noteEntity);
@@ -34,7 +34,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     final result = await notesDataSources.addNewNote(noteModel);
 
     return result.fold(
-      (failure) => Left(AddNoteToLocalError(message: failure.toString())),
+      (failure) => Left(AddNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }
@@ -45,7 +45,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     final noteModel = NoteModel.fromEntity(note);
     final result = await notesDataSources.updateNote(noteModel);
     return result.fold(
-      (failure) => Left(UpdateNoteToLocalError(message: failure.toString())),
+      (failure) => Left(UpdateNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }
@@ -55,7 +55,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
   Future<Either<NotesErrors, void>> deleteNote(int noteId) async {
     final result = await notesDataSources.deleteNote(noteId);
     return result.fold(
-      (failure) => Left(DeleteNoteFromLocalError(message: failure.toString())),
+      (failure) => Left(DeleteNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }

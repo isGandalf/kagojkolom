@@ -22,7 +22,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     Emitter<NotesState> emit,
   ) async {
     emit(NotesLoadingState());
-    final result = await noteUsecases.fetchNotesFromLocal();
+    final result = await noteUsecases.fetchNotes();
     return result.fold((failure) {
       logger.e(failure.toString());
       emit(NotesLoadingFailedState());
@@ -47,7 +47,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
 
     emit(NewNoteAddSuccessState());
     emit(NotesLoadingState());
-    final noteList = await noteUsecases.fetchNotesFromLocal();
+    final noteList = await noteUsecases.fetchNotes();
     return noteList.fold((failure) {
       logger.e(failure.toString());
       emit(NotesLoadingFailedState());

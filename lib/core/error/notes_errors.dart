@@ -7,30 +7,30 @@ abstract class NotesErrors {
   }
 }
 
-class FetchLocalNotesError implements NotesErrors {
+class FetchNotesError implements NotesErrors {
   @override
   final String message;
 
-  FetchLocalNotesError({required this.message});
+  FetchNotesError({required this.message});
 }
 
-class AddNoteToLocalError implements NotesErrors {
+class AddNoteError implements NotesErrors {
   @override
   final String message;
 
-  AddNoteToLocalError({required this.message});
+  AddNoteError({required this.message});
 }
 
-class UpdateNoteToLocalError implements NotesErrors {
+class UpdateNoteError implements NotesErrors {
   @override
   final String message;
 
-  UpdateNoteToLocalError({required this.message});
+  UpdateNoteError({required this.message});
 }
 
-class DeleteNoteFromLocalError implements NotesErrors {
+class DeleteNoteError implements NotesErrors {
   @override
   final String message;
 
-  DeleteNoteFromLocalError({required this.message});
+  DeleteNoteError({required this.message});
 }

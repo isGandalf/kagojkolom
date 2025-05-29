@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/bottom_nav_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/floating_button.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_mobile.dart';
 import 'package:kagojkolom/shared/widgets/search_field.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/tab_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/user_header.dart';
 
 class HomepageMobile extends StatefulWidget {
@@ -31,7 +31,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                 const SizedBox(height: 20),
                 SearchField(searchController: _searchController),
                 const SizedBox(height: 10),
-                const TabView(),
+                const NotesMobile(),
                 const SizedBox(height: 10),
               ],
             ),
