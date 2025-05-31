@@ -14,3 +14,23 @@ final class AddNewNoteButtonPressedEvent extends NotesEvent {
     required this.noteContent,
   });
 }
+
+final class UpdateNoteButtonPressedEvent extends NotesEvent {
+  final int noteId;
+  final String noteTitle;
+  final String noteContent;
+  final DateTime createdAt;
+  final bool isPrivate;
+  final bool isFavourite;
+  final List<String> sharedWithUserIds;
+
+  UpdateNoteButtonPressedEvent({
+    required this.noteId,
+    required this.noteTitle,
+    required this.noteContent,
+    required this.createdAt,
+    required this.isPrivate,
+    required this.isFavourite,
+    required this.sharedWithUserIds,
+  });
+}

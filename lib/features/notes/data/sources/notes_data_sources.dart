@@ -138,11 +138,17 @@ class NotesDataSources {
         return Left(UpdateNoteError(message: 'No user found'));
       }
 
+      // since i am using '.set()', owner id need to be reassigned.
+      final userId = user.uid;
+      print('Owner id --> $userId');
+      final updatedNoteModel = noteModel.copyWith(ownerId: userId);
+
       // get noteId
       final noteId = noteModel.noteId;
 
       // convert to json
-      final noteJson = noteModel.toJson();
+      final noteJson = updatedNoteModel.toJson();
+      print(noteJson);
 
       // update db
       await firebaseFirestore

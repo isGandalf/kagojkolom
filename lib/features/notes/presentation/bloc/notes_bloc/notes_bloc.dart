@@ -14,6 +14,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
   NotesBloc(this.noteUsecases) : super(NotesInitial()) {
     on<NotePageInitialEvent>(notePageInitialEvent);
     on<AddNewNoteButtonPressedEvent>(addNewNoteButtonPressedEvent);
+    on<UpdateNoteButtonPressedEvent>(updateNoteButtonPressedEvent);
   }
 
   // Initial state - In this state the homepage will load with all the notes
@@ -46,6 +47,37 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     }
 
     emit(NewNoteAddSuccessState());
+    emit(NotesLoadingState());
+    final noteList = await noteUsecases.fetchNotes();
+    return noteList.fold((failure) {
+      logger.e(failure.toString());
+      emit(NotesLoadingFailedState());
+    }, (allNotes) => emit(NotesLoadedState(allNotes: allNotes)));
+  }
+
+  // Update an existing note
+  FutureOr<void> updateNoteButtonPressedEvent(
+    UpdateNoteButtonPressedEvent event,
+    Emitter<NotesState> emit,
+  ) async {
+    emit(NotesLoadingState());
+    final result = await noteUsecases.updateNote(
+      event.noteId,
+      event.noteTitle,
+      event.noteContent,
+      event.createdAt,
+      event.isPrivate,
+      event.isFavourite,
+      event.sharedWithUserIds,
+    );
+
+    if (result.isLeft()) {
+      emit(UpdateNoteFailedState());
+      return;
+    }
+
+    emit(UpdateNoteSuccessState());
+
     emit(NotesLoadingState());
     final noteList = await noteUsecases.fetchNotes();
     return noteList.fold((failure) {

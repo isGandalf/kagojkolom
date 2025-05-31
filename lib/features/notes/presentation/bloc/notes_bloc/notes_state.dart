@@ -24,3 +24,7 @@ final class NotesActionState extends NotesState {}
 final class NewNoteAddSuccessState extends NotesActionState {}
 
 final class NewNoteAddFailedState extends NotesActionState {}
+
+final class UpdateNoteSuccessState extends NotesActionState {}
+
+final class UpdateNoteFailedState extends NotesActionState {}

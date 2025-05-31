@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/notes.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/notes_view_mobile.dart';
 
 class NotesMobile extends StatefulWidget {
   const NotesMobile({super.key});
@@ -28,6 +28,7 @@ class _NotesMobileState extends State<NotesMobile>
       builder: (context, state)
       // Load the list of notes
       {
+        logger.d(state.runtimeType);
         if (state is NotesLoadedState) {
           final noteList = state.allNotes;
           return Expanded(
@@ -50,9 +51,9 @@ class _NotesMobileState extends State<NotesMobile>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      Notes(noteList: noteList),
-                      Notes(noteList: noteList),
-                      Notes(noteList: noteList),
+                      NotesViewMobile(noteList: noteList),
+                      NotesViewMobile(noteList: noteList),
+                      NotesViewMobile(noteList: noteList),
                     ],
                   ),
                 ),

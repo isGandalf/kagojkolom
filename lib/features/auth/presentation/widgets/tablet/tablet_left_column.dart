@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/tablet_drawer_icon.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/tablet/tablet_drawer_icon.dart';
 
 class TabletLeftColumn extends StatelessWidget {
   const TabletLeftColumn({super.key});

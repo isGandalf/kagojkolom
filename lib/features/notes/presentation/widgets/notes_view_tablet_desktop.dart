@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
+import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 
-class TabletRightColumn extends StatelessWidget {
-  const TabletRightColumn({super.key, required this.selectedNote});
+class NotesViewTabletDesktop extends StatelessWidget {
+  const NotesViewTabletDesktop({super.key, required this.selectedNote});
 
-  final Map<String, dynamic>? selectedNote;
+  final NoteEntity? selectedNote;
 
   @override
   Widget build(BuildContext context) {
     // final String noteTitle = selectedNote?['title'];
     // final String noteContent = selectedNote?['content'];
     final noteTitleController = TextEditingController(
-      text: selectedNote?['title'],
+      text: selectedNote?.noteTitle,
     );
     final noteContentController = TextEditingController(
-      text: selectedNote?['content'],
+      text: selectedNote?.noteContent,
     );
 
     return Expanded(

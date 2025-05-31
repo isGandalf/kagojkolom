@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/notes_view_tablet_desktop.dart';
+import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 
 class NotesTablet extends StatelessWidget {
-  const NotesTablet({super.key});
+  final NoteEntity? selectedNote;
+  const NotesTablet({super.key, this.selectedNote});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('This is Notes Tablet')));
+    return NotesViewTabletDesktop(selectedNote: selectedNote);
   }
 }

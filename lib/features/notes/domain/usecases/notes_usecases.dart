@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:kagojkolom/core/error/notes_errors.dart';
+import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/domain/repository/notes_domain_repository.dart';
 
@@ -43,8 +44,31 @@ class NoteUsecases {
   }
 
   // update existing note
-  Future<Either<NotesErrors, void>> updateNote(NoteEntity note) async {
-    final result = await notesDomainRepository.updateNote(note);
+  Future<Either<NotesErrors, void>> updateNote(
+    int noteId,
+    String noteTitle,
+    String noteContent,
+    DateTime createdAt,
+    bool isPrivate,
+    bool isFavourite,
+    List<String> sharedWithUserIds,
+  ) async {
+    logger.d('From use case --> $noteTitle -- $noteContent');
+    // create note entity
+    final noteEntity = NoteEntity(
+      noteId: noteId,
+      noteTitle: noteTitle,
+      noteContent: noteContent,
+      createdAt: createdAt,
+      isPrivate: isPrivate,
+      isFavourite: isFavourite,
+      isDeleted: false,
+      sharedWithUserIds: sharedWithUserIds,
+      isSynced: false,
+      updatedAt: DateTime.now(),
+    );
+
+    final result = await notesDomainRepository.updateNote(noteEntity);
     return result.fold(
       (failure) => Left(UpdateNoteError(message: failure.toString())),
       (_) => Right(null),

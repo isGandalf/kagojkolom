@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/custom_app_bar.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop_left_column.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/tablet_middle_column.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_left_column.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_action_button_options.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_button.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/middle_column_note_list.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/notes_view_tablet_desktop.dart';
+import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
+import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_desktop.dart';
 
 class HomepageDesktop extends StatefulWidget {
   const HomepageDesktop({super.key});
@@ -15,45 +23,15 @@ class HomepageDesktop extends StatefulWidget {
 class _HomepageDesktopState extends State<HomepageDesktop> {
   late TextEditingController _noteTitleController;
   late TextEditingController _noteContentController;
-  List<Map<String, dynamic>> sampleNotes = [
-    {
-      'title': 'Meeting Notes',
-      'content':
-          'Discuss project milestones and deadlines. Discuss project milestones and deadlines.',
-      'date': DateTime.now(),
-      'isFavourite': true,
-      'isPrivate': false,
-    },
-    {
-      'title': 'Grocery List',
-      'content': 'Milk, eggs, bread, coffee, and fruits.',
-      'date': DateTime.now(),
-      'isFavourite': false,
-      'isPrivate': true,
-    },
-    {
-      'title': 'Flutter Tips',
-      'content': 'Use const constructors and avoid rebuilds.',
-      'date': DateTime.now(),
-      'isFavourite': true,
-      'isPrivate': false,
-    },
-    {
-      'title': 'Travel Plan',
-      'content': 'Book flights and hotels for June vacation.',
-      'date': DateTime.now(),
-      'isFavourite': false,
-      'isPrivate': false,
-    },
-  ];
 
-  Map<String, dynamic>? selectedNote;
+  NoteEntity? selectedNote;
 
   @override
   void initState() {
     super.initState();
     _noteTitleController = TextEditingController();
     _noteContentController = TextEditingController();
+    context.read<NotesBloc>().add(NotePageInitialEvent());
   }
 
   @override
@@ -63,7 +41,7 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
     super.dispose();
   }
 
-  void noteSelection(Map<String, dynamic> note) {
+  void noteSelection(NoteEntity note) {
     setState(() {
       selectedNote = note;
     });
@@ -71,45 +49,77 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(),
-      body: Row(
-        children: [
-          DesktopLeftColumn(),
-          VerticalDivider(thickness: 1, width: 0),
-          SizedBox(
-            width: 400,
+    return BlocBuilder<NotesBloc, NotesState>(
+      builder: (context, state) {
+        logger.d(state.runtimeType);
+        // loading state
+        if (state is NotesLoadingState) {
+          return Scaffold(
+            appBar: CustomAppBar(),
+            body: Center(child: CircularProgressIndicator.adaptive()),
+          );
+        }
+        // logged state
+        else if (state is NotesLoadedState) {
+          final allNotes = state.allNotes;
+          return Scaffold(
+            appBar: CustomAppBar(),
+            body: Row(
+              children: [
+                // left column
+                DesktopLeftColumn(),
+                VerticalDivider(thickness: 1, width: 0),
 
-            child: MiddleColumn(
-              sampleNotes: sampleNotes,
-              selectedNote: selectedNote,
-              onSelect: noteSelection,
-            ),
-          ),
-          VerticalDivider(thickness: 1, width: 1),
-          Expanded(
-            child: Container(
-              color:
-                  Theme.of(context).brightness == Brightness.dark
-                      ? AppColorsDark.noteBackgroundColor
-                      : AppColorsLight.noteBackgroundColor,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30.0,
-                  vertical: 20,
+                // middle column
+                SizedBox(
+                  width: 400,
+
+                  child: MiddleColumnNoteList(
+                    noteEntity: allNotes,
+                    selectedNote: selectedNote,
+                    onSelect: noteSelection,
+                  ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(width: double.infinity, child: TextField()),
-                    Expanded(child: TextField()),
-                  ],
-                ),
-              ),
+                VerticalDivider(thickness: 1, width: 1),
+
+                // // right column (notes view)
+                NotesDesktop(selectedNote: selectedNote),
+                // Expanded(
+                //   child: Container(
+                //     color:
+                //         Theme.of(context).brightness == Brightness.dark
+                //             ? AppColorsDark.noteBackgroundColor
+                //             : AppColorsLight.noteBackgroundColor,
+                //     child: Padding(
+                //       padding: const EdgeInsets.symmetric(
+                //         horizontal: 30.0,
+                //         vertical: 20,
+                //       ),
+                //       child: Column(
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           SizedBox(width: double.infinity, child: TextField()),
+                //           Expanded(child: TextField()),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // ),
+              ],
             ),
-          ),
-        ],
-      ),
+            floatingActionButton: FloatingActionButtonOptions(),
+          );
+        }
+        // failed state
+        else {
+          return Scaffold(
+            appBar: CustomAppBar(),
+            body: Center(
+              child: Column(children: [Text('Failed to load notes')]),
+            ),
+          );
+        }
+      },
     );
   }
 }

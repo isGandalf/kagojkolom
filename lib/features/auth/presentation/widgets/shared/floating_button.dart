@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class FloatingButton extends StatelessWidget {
-  const FloatingButton({super.key});
+  final VoidCallback onTap;
+  final IconData icon;
+  final double iconSize;
+  const FloatingButton({
+    super.key,
+    required this.onTap,
+    required this.icon,
+    required this.iconSize,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +19,8 @@ class FloatingButton extends StatelessWidget {
       child: FloatingActionButton(
         elevation: 5,
         shape: const CircleBorder(),
-        onPressed: () {},
-        child: Icon(Icons.add, size: 50),
+        onPressed: onTap,
+        child: Icon(icon, size: iconSize),
       ),
     );
   }

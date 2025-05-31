@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:kagojkolom/features/auth/domain/entity/user_entity.dart';
 import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
+import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -28,6 +29,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     );
     return userEntity.fold((failure) {
       emit(LoginFailedActionState(message: failure.message));
-    }, (entity) => emit(LoginSuccessActionState(userEntity: entity)));
+    }, (entity) {
+      
+      emit(LoginSuccessActionState(userEntity: entity));
+    });
   }
 }
