@@ -96,6 +96,7 @@ class NotesDataSources {
           await firebaseFirestore
               .collection('notes')
               .where('ownerId', isEqualTo: userId)
+              .where('isDeleted', isEqualTo: false)
               .get();
 
       if (notesSnapshot.docs.isEmpty) {
@@ -184,7 +185,13 @@ class NotesDataSources {
         return Left(DeleteNoteError(message: 'No user found'));
       }
 
-      await firebaseFirestore.collection('notes').doc(id.toString()).delete();
+      final now = Timestamp.fromDate(DateTime.now());
+
+      await firebaseFirestore.collection('notes').doc(id.toString()).update({
+        'isDeleted': true,
+        'deletedAt': now,
+      });
+      //await firebaseFirestore.collection('notes').doc(id.toString()).delete();
       return Right(null);
     } on FirebaseException catch (e) {
       return Left(

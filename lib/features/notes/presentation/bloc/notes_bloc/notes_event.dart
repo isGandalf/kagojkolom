@@ -34,3 +34,9 @@ final class UpdateNoteButtonPressedEvent extends NotesEvent {
     required this.sharedWithUserIds,
   });
 }
+
+final class DeleteNoteButtonPressedEvent extends NotesEvent {
+  final int noteId;
+
+  DeleteNoteButtonPressedEvent({required this.noteId});
+}

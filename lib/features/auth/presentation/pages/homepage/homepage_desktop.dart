@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
-import 'package:kagojkolom/core/theme/app_colors_dark.dart';
-import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_left_column.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_action_button_options.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_button.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/middle_column_note_list.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/notes_view_tablet_desktop.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_desktop.dart';

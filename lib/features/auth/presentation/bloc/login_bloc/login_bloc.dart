@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:kagojkolom/features/auth/domain/entity/user_entity.dart';
 import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
-import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 

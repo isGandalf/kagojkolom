@@ -15,6 +15,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     on<NotePageInitialEvent>(notePageInitialEvent);
     on<AddNewNoteButtonPressedEvent>(addNewNoteButtonPressedEvent);
     on<UpdateNoteButtonPressedEvent>(updateNoteButtonPressedEvent);
+    on<DeleteNoteButtonPressedEvent>(deleteNoteButtonPressedEvent);
   }
 
   // Initial state - In this state the homepage will load with all the notes
@@ -42,6 +43,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     );
 
     if (result.isLeft()) {
+      result.fold((l) => logger.e(l.message), (r) => null);
       emit(NewNoteAddFailedState());
       return;
     }
@@ -72,6 +74,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     );
 
     if (result.isLeft()) {
+      result.fold((l) => logger.e(l.message), (r) => null);
       emit(UpdateNoteFailedState());
       return;
     }
@@ -79,6 +82,27 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     emit(UpdateNoteSuccessState());
 
     emit(NotesLoadingState());
+    final noteList = await noteUsecases.fetchNotes();
+    return noteList.fold((failure) {
+      logger.e(failure.toString());
+      emit(NotesLoadingFailedState());
+    }, (allNotes) => emit(NotesLoadedState(allNotes: allNotes)));
+  }
+
+  FutureOr<void> deleteNoteButtonPressedEvent(
+    DeleteNoteButtonPressedEvent event,
+    Emitter<NotesState> emit,
+  ) async {
+    final result = await noteUsecases.deleteNote(event.noteId);
+
+    if (result.isLeft()) {
+      result.fold((l) => logger.e(l.message), (r) => null);
+      emit(DeleteNoteFailedState(message: 'Failed to delete note'));
+      return;
+    }
+
+    emit(DeleteNoteSuccessState());
+
     final noteList = await noteUsecases.fetchNotes();
     return noteList.fold((failure) {
       logger.e(failure.toString());

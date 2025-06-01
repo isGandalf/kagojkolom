@@ -28,3 +28,11 @@ final class NewNoteAddFailedState extends NotesActionState {}
 final class UpdateNoteSuccessState extends NotesActionState {}
 
 final class UpdateNoteFailedState extends NotesActionState {}
+
+final class DeleteNoteSuccessState extends NotesActionState {}
+
+final class DeleteNoteFailedState extends NotesActionState {
+  final String message;
+
+  DeleteNoteFailedState({required this.message});
+}
