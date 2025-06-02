@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/new_note/button_for_new_note.dart';
 
 class AddNewNoteButtons extends StatelessWidget {
   const AddNewNoteButtons({
@@ -18,17 +19,18 @@ class AddNewNoteButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: () {
+        ButtonForNewNote(
+          buttonName: 'Cancel',
+          onTap: () {
             _noteTitleController.clear();
             _noteContentController.clear();
             Navigator.of(context).pop();
           },
-          child: Text('Cancel'),
         ),
         SizedBox(width: 20),
-        ElevatedButton(
-          onPressed: () {
+        ButtonForNewNote(
+          buttonName: 'Create',
+          onTap: () {
             context.read<NotesBloc>().add(
               AddNewNoteButtonPressedEvent(
                 noteTitle: _noteTitleController.text,
@@ -39,7 +41,6 @@ class AddNewNoteButtons extends StatelessWidget {
             _noteContentController.clear();
             Navigator.of(context).pop();
           },
-          child: Text('Create'),
         ),
       ],
     );

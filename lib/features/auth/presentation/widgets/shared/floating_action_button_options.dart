@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_button.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/tablet_desktop_add_new_note_dialog_box.dart';
+import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/new_note/button_for_new_note.dart';
 
 class FloatingActionButtonOptions extends StatefulWidget {
   const FloatingActionButtonOptions({super.key});
 
   @override
-  State<FloatingActionButtonOptions> createState() => _FloatingActionButtonOptionsState();
+  State<FloatingActionButtonOptions> createState() =>
+      _FloatingActionButtonOptionsState();
 }
 
-class _FloatingActionButtonOptionsState extends State<FloatingActionButtonOptions> {
-
+class _FloatingActionButtonOptionsState
+    extends State<FloatingActionButtonOptions> {
   final _noteTitleController = TextEditingController();
   final _noteContentController = TextEditingController();
 
@@ -34,35 +39,9 @@ class _FloatingActionButtonOptionsState extends State<FloatingActionButtonOption
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return Dialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      insetPadding: EdgeInsets.zero,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height,
-                        padding: EdgeInsets.all(16),
-                        child: Column(
-                          children: [
-                            TextField(
-                              controller: _noteTitleController,
-                              decoration: InputDecoration(hintText: 'Title'),
-                            ),
-                            SizedBox(height: 10),
-                            Expanded(
-                              child: TextField(
-                                controller: _noteContentController,
-                                decoration: InputDecoration(
-                                  hintText: 'Content',
-                                ),
-                                maxLines: null,
-                                expands: true,
-                                textAlignVertical: TextAlignVertical.top,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                    return TabletDesktopAddNoteDialogBox(
+                      noteTitleController: _noteTitleController,
+                      noteContentController: _noteContentController,
                     );
                   },
                 );

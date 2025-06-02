@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/mobile/bottom_nav_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_button.dart';
-import 'package:kagojkolom/features/calendar/calendar.dart';
+import 'package:kagojkolom/features/calendar/calendar_widget_page.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_deleted.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_mobile.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_shared_with_me.dart';
@@ -25,7 +25,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
     NotesMobile(),
     NotesSharedWithMe(),
     NotesDeleted(),
-    Calendar(),
+    CalendarWidgetPage(),
   ];
 
   late int selectedWidget;

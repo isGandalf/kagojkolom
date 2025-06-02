@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_left_column_option.dart';
 
 class DesktopUpperWidgetsGroup extends StatelessWidget {
-  const DesktopUpperWidgetsGroup({super.key});
+  final void Function(int) onPageSelect;
+  final int selectedPage;
+
+  const DesktopUpperWidgetsGroup({
+    super.key,
+    required this.onPageSelect,
+    required this.selectedPage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,30 +20,34 @@ class DesktopUpperWidgetsGroup extends StatelessWidget {
           DeskTopLeftColumnOption(
             optionName: 'All notes',
             onTap: () {
-              print('Clicked all notes');
+              onPageSelect(0);
             },
             icon: Icons.notes,
+            isSelected: selectedPage == 0,
           ),
           DeskTopLeftColumnOption(
             optionName: 'Favourites',
             onTap: () {
-              print('Clicked Favourites');
+              onPageSelect(1);
             },
             icon: Icons.favorite,
+            isSelected: selectedPage == 1,
           ),
           DeskTopLeftColumnOption(
             optionName: 'Shared with me',
             onTap: () {
-              print('Shared with me');
+              onPageSelect(2);
             },
             icon: Icons.share,
+            isSelected: selectedPage == 2,
           ),
           DeskTopLeftColumnOption(
             optionName: 'Calendar',
             onTap: () {
-              print('clicked Calendar');
+              onPageSelect(3);
             },
             icon: Icons.calendar_month_outlined,
+            isSelected: selectedPage == 3,
           ),
         ],
       ),

@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
 
 class MiddleColumnNoteList extends StatelessWidget {
   const MiddleColumnNoteList({
     super.key,
-    required this.noteEntity,
+    required this.noteEntityList,
     required this.selectedNote,
     required this.onSelect,
   });
 
-  final List<NoteEntity> noteEntity;
+  final List<NoteEntity> noteEntityList;
   final NoteEntity? selectedNote;
   final void Function(NoteEntity) onSelect;
 
+  void sortNoteList(List<NoteEntity> noteList) {
+    noteList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+  }
+
   @override
   Widget build(BuildContext context) {
+    sortNoteList(noteEntityList);
     return ListView.builder(
-      itemCount: noteEntity.length,
+      itemCount: noteEntityList.length,
       itemBuilder: (context, index) {
-        final note = noteEntity[index];
+        final note = noteEntityList[index];
         return Column(
           children: [
             ListTile(
@@ -29,6 +35,7 @@ class MiddleColumnNoteList extends StatelessWidget {
               title: Text(note.noteTitle),
               subtitle: Text(note.noteContent),
               onTap: () => onSelect(note),
+              trailing: ThreeDotMenu(noteId: note.noteId),
             ),
             Divider(thickness: 1, height: 0),
           ],

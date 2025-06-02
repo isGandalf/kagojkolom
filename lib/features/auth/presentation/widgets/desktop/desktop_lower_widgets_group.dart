@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_left_column_option.dart';
 
 class DesktopLowerWidgetsGroup extends StatelessWidget {
-  const DesktopLowerWidgetsGroup({super.key});
+  final void Function(int) onPageSelect;
+  final int selectedPage;
+  const DesktopLowerWidgetsGroup({
+    super.key,
+    required this.onPageSelect,
+    required this.selectedPage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +18,18 @@ class DesktopLowerWidgetsGroup extends StatelessWidget {
           DeskTopLeftColumnOption(
             optionName: 'Trash',
             onTap: () {
-              print('clicked Trash');
+              onPageSelect(4);
             },
             icon: Icons.delete_outlined,
+            isSelected: selectedPage == 4,
           ),
           DeskTopLeftColumnOption(
             optionName: 'Trash',
             onTap: () {
-              print('Sign Out');
+              onPageSelect(5);
             },
             icon: Icons.logout_outlined,
+            isSelected: selectedPage == 5,
           ),
         ],
       ),

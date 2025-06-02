@@ -47,7 +47,7 @@ class ThreeDotMenu extends StatelessWidget {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     backgroundColor: AppColorsCommon.primaryBlue,
-                    behavior: SnackBarBehavior.floating,
+                    //behavior: SnackBarBehavior.floating,
                     content: Text(
                       'Note moved to trash',
                       style: TextStyle(

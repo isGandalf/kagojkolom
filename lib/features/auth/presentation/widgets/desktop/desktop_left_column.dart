@@ -3,7 +3,13 @@ import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_lo
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_upper_widgets_group.dart';
 
 class DesktopLeftColumn extends StatelessWidget {
-  const DesktopLeftColumn({super.key});
+  final void Function(int) onPageSelect;
+  final int selectedPage;
+  const DesktopLeftColumn({
+    super.key,
+    required this.onPageSelect,
+    required this.selectedPage,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +19,16 @@ class DesktopLeftColumn extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // upper widget group contain options: all notes, favourite, shared with me and calendar
-          DesktopUpperWidgetsGroup(),
+          DesktopUpperWidgetsGroup(
+            onPageSelect: onPageSelect,
+            selectedPage: selectedPage,
+          ),
 
           // lower widget group contain options: delete and signout
-          DesktopLowerWidgetsGroup(),
+          DesktopLowerWidgetsGroup(
+            onPageSelect: onPageSelect,
+            selectedPage: selectedPage,
+          ),
         ],
       ),
     );
