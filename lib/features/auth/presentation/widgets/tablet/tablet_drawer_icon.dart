@@ -27,7 +27,6 @@ class TabletDrawerIcon extends StatelessWidget {
           onPressed: onPressed,
           icon: Icon(
             icon,
-
             color: isSelected ? Colors.white : AppColorsCommon.iconUnfocused,
           ),
         ),

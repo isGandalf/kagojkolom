@@ -99,7 +99,6 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
                 // middle column
                 SizedBox(
                   width: 400,
-
                   child: pages[selectedPage],
 
                   // MiddleColumnNoteList(
