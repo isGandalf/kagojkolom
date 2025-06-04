@@ -5,6 +5,12 @@ sealed class NotesEvent {}
 
 final class NotePageInitialEvent extends NotesEvent {}
 
+final class NotePageOptionPressedEvent extends NotesEvent {
+  final NotePageType selectedNotePage;
+
+  NotePageOptionPressedEvent({required this.selectedNotePage});
+}
+
 final class AddNewNoteButtonPressedEvent extends NotesEvent {
   final String noteTitle;
   final String noteContent;

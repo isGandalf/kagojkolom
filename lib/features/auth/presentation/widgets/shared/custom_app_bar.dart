@@ -58,7 +58,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                     ),
                   ),
                 ),
-                Divider(height: 1, thickness: 1),
+                //Divider(height: 1, thickness: 1),
               ],
             ),
           );

@@ -65,7 +65,7 @@ class _HomepageTabletState extends State<HomepageTablet> {
         }
         // notes loading success state
         else if (state is NotesLoadedState) {
-          final allNotes = state.allNotes;
+          final allNotes = state.myNotes;
           List<Widget> pages = [
             AllNotesPage(
               noteEntityList: allNotes,

@@ -78,7 +78,7 @@ final ThemeData darkTheme = ThemeData(
     backgroundColor: AppColorsDark.drawerBackgroundColor,
   ),
   elevatedButtonTheme: elevatedButtonThemeData,
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: TabBarThemeData(
     labelColor: AppColorsDark.tabLabelTextColorSelected,
     unselectedLabelColor: AppColorsDark.tabLabelTextColorUnselected,
     labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -87,7 +87,7 @@ final ThemeData darkTheme = ThemeData(
     tabAlignment: TabAlignment.start,
     indicator: DotIndicator(color: AppColorsDark.tabLabelTextColorSelected),
   ),
-  cardTheme: CardTheme(color: AppColorsDark.noteBackgroundColor),
+  cardTheme: CardThemeData(color: AppColorsDark.noteBackgroundColor),
   bottomAppBarTheme: BottomAppBarTheme(
     color: AppColorsDark.drawerBackgroundColor,
     height: 65,
@@ -141,7 +141,7 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: AppColorsLight.drawerBackgroundColor,
   ),
   elevatedButtonTheme: elevatedButtonThemeData,
-  tabBarTheme: TabBarTheme(
+  tabBarTheme: TabBarThemeData(
     labelColor: AppColorsLight.tabLabelTextColorSelected,
     unselectedLabelColor: AppColorsLight.tabLabelTextColorUnselected,
     labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
@@ -150,7 +150,10 @@ final ThemeData lightTheme = ThemeData(
     tabAlignment: TabAlignment.start,
     indicator: DotIndicator(color: AppColorsLight.tabLabelTextColorSelected),
   ),
-  cardTheme: CardTheme(color: AppColorsLight.noteBackgroundColor, elevation: 0),
+  cardTheme: CardThemeData(
+    color: AppColorsLight.noteBackgroundColor,
+    elevation: 0,
+  ),
   bottomAppBarTheme: BottomAppBarTheme(
     color: AppColorsLight.drawerBackgroundColor,
     height: 65,

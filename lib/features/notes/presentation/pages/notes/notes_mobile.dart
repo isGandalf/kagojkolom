@@ -30,7 +30,7 @@ class _NotesMobileState extends State<NotesMobile>
       {
         logger.d(state.runtimeType);
         if (state is NotesLoadedState) {
-          final noteList = state.allNotes;
+          final noteList = state.myNotes;
           return Expanded(
             child: Column(
               children: [
