@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:kagojkolom/core/theme/app_colors_common.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop/ddesktop_left_column.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/new_layout/desktop_left_column.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop/new_layout/desktop_left_column_option.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop/new_layout/notes_grid_view.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_grid_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
-import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/note_page_type.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
 
 class HomepageDesktop extends StatefulWidget {
   const HomepageDesktop({super.key});

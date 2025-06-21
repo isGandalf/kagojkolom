@@ -84,19 +84,24 @@ class NotesGridView extends StatelessWidget {
                                         maxLines: 10,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 50,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      ThreeDotMenu(noteId: note.noteId),
-                                      SizedBox(height: 20),
-                                      Icon(Icons.favorite_outline),
+                                      SizedBox(height: 5),
+                                      state.notePageType == NotePageType.trash
+                                          ? SizedBox()
+                                          : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              IconButton(
+                                                onPressed: () {},
+                                                icon: Icon(
+                                                  note.isFavourite
+                                                      ? Icons.favorite
+                                                      : Icons.favorite_outline,
+                                                ),
+                                              ),
+                                              ThreeDotMenu(noteId: note.noteId),
+                                            ],
+                                          ),
                                     ],
                                   ),
                                 ),

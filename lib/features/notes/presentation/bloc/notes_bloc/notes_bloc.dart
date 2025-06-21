@@ -41,14 +41,14 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
           allNotes.where((note) => note.isFavourite == true).toList();
       final trashNotes =
           allNotes.where((note) => note.isDeleted == true).toList();
-      print(myNotes.length);
-      print(favNotes.length);
-      print(trashNotes.length);
-      allNotes.forEach((note) {
-        print(
-          'Note ${note.noteId}: isFavourite=${note.isFavourite}, isDeleted=${note.isDeleted}',
-        );
-      });
+      // print(myNotes.length);
+      // print(favNotes.length);
+      // print(trashNotes.length);
+      // allNotes.forEach((note) {
+      //   print(
+      //     'Note ${note.noteId}: isFavourite=${note.isFavourite}, isDeleted=${note.isDeleted}',
+      //   );
+      // });
       emit(
         NotesLoadedState(
           notePageType: NotePageType.myNotes,

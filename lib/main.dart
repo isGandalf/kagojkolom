@@ -85,7 +85,7 @@ class KagojKolom extends StatelessWidget {
       builder: (context, constraints) {
         final isDesktop = constraints.maxWidth >= 1200;
         return MaterialApp(
-          theme: lightTheme,
+          theme: darkTheme,
           debugShowCheckedModeBanner: false,
           home: currentUser == null ? LoginParent() : SplashscreenParent(),
         );
