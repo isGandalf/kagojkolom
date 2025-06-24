@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/notes_view_mobile.dart';
 
 class NotesMobile extends StatefulWidget {
@@ -19,7 +20,9 @@ class _NotesMobileState extends State<NotesMobile>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    context.read<NotesBloc>().add(NotePageInitialEvent());
+    context.read<NotesBloc>().add(
+      NotePageInitialEvent(notePageType: NotePageType.myNotes),
+    );
   }
 
   @override

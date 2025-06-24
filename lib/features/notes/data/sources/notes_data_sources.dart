@@ -140,7 +140,7 @@ class NotesDataSources {
 
       // since i am using '.set()', owner id need to be reassigned.
       final userId = user.uid;
-      print('Owner id --> $userId');
+      //print('Owner id --> $userId');
       final updatedNoteModel = noteModel.copyWith(ownerId: userId);
 
       // get noteId
@@ -148,7 +148,7 @@ class NotesDataSources {
 
       // convert to json
       final noteJson = updatedNoteModel.toJson();
-      print(noteJson);
+      //print(noteJson);
 
       // update db
       await firebaseFirestore
@@ -252,6 +252,51 @@ class NotesDataSources {
     } catch (e) {
       return Left(
         FetchNotesError(message: 'An unexpected error occured --> $e'),
+      );
+    }
+  }
+
+  // Add to favourite
+  Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(UpdateNoteError(message: 'No user found'));
+      }
+
+      //final userId = user.uid;
+      final noteSnapshot =
+          await firebaseFirestore
+              .collection('notes')
+              .doc(noteId.toString())
+              .get();
+
+      if (noteSnapshot.exists) {
+        final note = NoteModel.fromJson(noteSnapshot.data()!);
+        await firebaseFirestore
+            .collection('notes')
+            .doc(noteId.toString())
+            .update({'isFavourite': !note.isFavourite});
+        print('fav - success');
+        return Right(null);
+      } else {
+        return Left(UpdateNoteError(message: 'No note found with --> $noteId'));
+      }
+    } on FirebaseException catch (e) {
+      return Left(
+        UpdateNoteError(
+          message: 'Firebase error occured when updating favourite --> $e',
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(
+        UpdateNoteError(
+          message: 'An error occured when updaing favourite --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        UpdateNoteError(message: 'An unexpected error occured --> $e'),
       );
     }
   }

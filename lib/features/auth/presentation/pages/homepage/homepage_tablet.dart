@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_grid_view.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/take_a_note_button.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/tablet/new_layout/tablet_left_column.dart';
 
@@ -20,8 +22,17 @@ class _HomepageTabletState extends State<HomepageTablet> {
           // Left column icons
           TabletLeftColumn(),
 
-          // Gridview
-          NotesGridView(),
+          Expanded(
+            child: Column(
+              children: [SizedBox(height: 30),
+              
+              // Take a note button
+              TakeANoteButton(),
+              
+              // Notes Grid
+              NotesGrid()],
+            ),
+          ),
         ],
       ),
     );

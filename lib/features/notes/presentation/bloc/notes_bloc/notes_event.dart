@@ -3,7 +3,12 @@ part of 'notes_bloc.dart';
 @immutable
 sealed class NotesEvent {}
 
-final class NotePageInitialEvent extends NotesEvent {}
+final class NotePageInitialEvent extends NotesEvent {
+  final NotePageType notePageType;
+
+  NotePageInitialEvent({required this.notePageType});
+
+}
 
 final class NotePageOptionPressedEvent extends NotesEvent {
   final NotePageType selectedNotePage;
@@ -14,10 +19,12 @@ final class NotePageOptionPressedEvent extends NotesEvent {
 final class AddNewNoteButtonPressedEvent extends NotesEvent {
   final String noteTitle;
   final String noteContent;
+  final NotePageType notePageType;
 
   AddNewNoteButtonPressedEvent({
     required this.noteTitle,
     required this.noteContent,
+    required this.notePageType,
   });
 }
 
@@ -29,6 +36,7 @@ final class UpdateNoteButtonPressedEvent extends NotesEvent {
   final bool isPrivate;
   final bool isFavourite;
   final List<String> sharedWithUserIds;
+  final NotePageType notePageType;
 
   UpdateNoteButtonPressedEvent({
     required this.noteId,
@@ -38,11 +46,23 @@ final class UpdateNoteButtonPressedEvent extends NotesEvent {
     required this.isPrivate,
     required this.isFavourite,
     required this.sharedWithUserIds,
+    required this.notePageType,
   });
 }
 
 final class DeleteNoteButtonPressedEvent extends NotesEvent {
   final int noteId;
+  final NotePageType notePageType;
 
-  DeleteNoteButtonPressedEvent({required this.noteId});
+  DeleteNoteButtonPressedEvent({required this.noteId, required this.notePageType,
+  });
+}
+
+final class FavouriteButtonPressedEvent extends NotesEvent {
+  final int noteId;
+  final NotePageType notePageType;
+  
+
+  FavouriteButtonPressedEvent({required this.noteId, required this.notePageType,
+  });
 }

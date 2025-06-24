@@ -7,4 +7,5 @@ abstract interface class NotesDomainRepository {
   Future<Either<NotesErrors, void>> addNewNote(NoteEntity note);
   Future<Either<NotesErrors, void>> updateNote(NoteEntity note);
   Future<Either<NotesErrors, void>> deleteNote(int noteId);
+  Future<Either<NotesErrors, void>> addToFavourite(int noteId);
 }

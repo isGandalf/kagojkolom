@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/new_note/button_for_new_note.dart';
 
 class AddNewNoteButtons extends StatelessWidget {
@@ -35,6 +36,7 @@ class AddNewNoteButtons extends StatelessWidget {
               AddNewNoteButtonPressedEvent(
                 noteTitle: _noteTitleController.text,
                 noteContent: _noteContentController.text,
+                notePageType: NotePageType.myNotes,
               ),
             );
             _noteTitleController.clear();

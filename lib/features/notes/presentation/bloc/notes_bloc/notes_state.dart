@@ -8,9 +8,17 @@ final class NotesInitial extends NotesState {}
 // Non-action states
 final class NotesNonActionState extends NotesState {}
 
-final class NotesLoadingState extends NotesNonActionState {}
+final class NotesLoadingState extends NotesNonActionState {
+  final NotePageType notePageType;
 
-final class NotesLoadingFailedState extends NotesNonActionState {}
+  NotesLoadingState({required this.notePageType});
+}
+
+final class NotesLoadingFailedState extends NotesNonActionState {
+  final NotePageType notePageType;
+
+  NotesLoadingFailedState({required this.notePageType});
+}
 
 final class NotesLoadedState extends NotesNonActionState {
   final NotePageType notePageType;
@@ -62,3 +70,7 @@ final class DeleteNoteFailedState extends NotesActionState {
 
   DeleteNoteFailedState({required this.message});
 }
+
+final class AddToFavouriteSuccessState extends NotesActionState {}
+
+final class AddToFavouriteFailedState extends NotesActionState {}

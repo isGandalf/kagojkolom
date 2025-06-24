@@ -53,7 +53,7 @@ class NoteUsecases {
     bool isFavourite,
     List<String> sharedWithUserIds,
   ) async {
-    logger.d('From use case --> $noteTitle -- $noteContent');
+    //logger.d('From use case --> $noteTitle -- $noteContent');
     // create note entity
     final noteEntity = NoteEntity(
       noteId: noteId,
@@ -80,6 +80,15 @@ class NoteUsecases {
     final result = await notesDomainRepository.deleteNote(noteId);
     return result.fold(
       (failure) => Left(DeleteNoteError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
+
+  // Add to Favourite
+  Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
+    final result = await notesDomainRepository.addToFavourite(noteId);
+    return result.fold(
+      (failure) => Left(UpdateNoteError(message: failure.toString())),
       (_) => Right(null),
     );
   }

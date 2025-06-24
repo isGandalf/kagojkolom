@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/update_note/update_note_dialog.dart';
 
@@ -104,7 +105,10 @@ class _NotesState extends State<NotesViewMobile> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         // 3 dot popup menu
-                        ThreeDotMenu(noteId: note.noteId),
+                        ThreeDotMenu(
+                          noteId: note.noteId,
+                          notePageType: NotePageType.myNotes,
+                        ),
                         // favourite icon
                         IconButton(
                           onPressed: () {},

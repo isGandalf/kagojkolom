@@ -59,4 +59,13 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
       (_) => Right(null),
     );
   }
+
+  @override
+  Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
+    final result = await notesDataSources.addToFavourite(noteId);
+    return result.fold(
+      (failure) => Left(UpdateNoteError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
 }

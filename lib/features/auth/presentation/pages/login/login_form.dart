@@ -5,6 +5,7 @@ import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/shared/widgets/custom_dialog_box_with_one_button.dart';
 import 'package:kagojkolom/shared/widgets/custom_elevated_button.dart';
 import 'package:kagojkolom/shared/widgets/custom_text_form_field.dart';
@@ -57,7 +58,9 @@ class _LoginFormState extends State<LoginForm> {
         } else if (state is LoginSuccessActionState) {
           final userEntity = state.userEntity;
           context.read<UserBloc>().add(LoadUserEvent(userEntity: userEntity));
-          context.read<NotesBloc>().add(NotePageInitialEvent());
+          context.read<NotesBloc>().add(
+            NotePageInitialEvent(notePageType: NotePageType.myNotes),
+          );
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(builder: (context) => HomepageParent()),

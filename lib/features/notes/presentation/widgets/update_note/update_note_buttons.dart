@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 
 class UpdateNoteButtons extends StatelessWidget {
   final NoteEntity note;
@@ -18,6 +19,7 @@ class UpdateNoteButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NotePageType currentPage = NotePageType.myNotes;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -40,6 +42,7 @@ class UpdateNoteButtons extends StatelessWidget {
                 isPrivate: note.isPrivate,
                 isFavourite: note.isFavourite,
                 sharedWithUserIds: note.sharedWithUserIds,
+                notePageType: currentPage,
               ),
             );
             Navigator.of(context).pop();

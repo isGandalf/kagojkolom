@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/pop_up_options.dart';
 import 'package:popover/popover.dart';
 
 class ThreeDotMenu extends StatelessWidget {
   final int noteId;
-  const ThreeDotMenu({super.key, required this.noteId});
+  final NotePageType notePageType;
+  const ThreeDotMenu({
+    super.key,
+    required this.noteId,
+    required this.notePageType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,10 @@ class ThreeDotMenu extends StatelessWidget {
             PopUpOptions(
               onTap: () {
                 context.read<NotesBloc>().add(
-                  DeleteNoteButtonPressedEvent(noteId: noteId),
+                  DeleteNoteButtonPressedEvent(
+                    noteId: noteId,
+                    notePageType: notePageType,
+                  ),
                 );
                 Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(

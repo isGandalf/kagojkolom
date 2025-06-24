@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_lower_widgets_group.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_upper_widgets_group.dart';
+// import 'package:flutter/material.dart';
+// import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_lower_widgets_group.dart';
+// import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_upper_widgets_group.dart';
 
 // class DDesktopLeftColumn extends StatelessWidget {
 //   final void Function(int) onPageSelect;
