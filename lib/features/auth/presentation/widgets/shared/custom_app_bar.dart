@@ -6,24 +6,9 @@ import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_prof
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_search.dart';
 import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 
-class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const CustomAppBar({super.key});
-
-  @override
-  State<CustomAppBar> createState() => _CustomAppBarState();
-
-  @override
-  Size get preferredSize => const Size.fromHeight(72);
-}
-
-class _CustomAppBarState extends State<CustomAppBar> {
-  final TextEditingController _searchController = TextEditingController();
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final TextEditingController searchController;
+  const CustomAppBar({super.key, required this.searchController});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +34,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppBarBrandIcon(),
-                        AppBarSearch(searchController: _searchController),
+                        AppBarSearch(searchController: searchController,),
                         AppBarProfileSection(
                           firstName: firstName,
                           lastName: lastName,
@@ -70,4 +55,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
       },
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(72);
 }

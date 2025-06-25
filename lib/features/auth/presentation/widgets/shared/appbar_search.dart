@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppBarSearch extends StatelessWidget {
-  const AppBarSearch({
-    super.key,
-    required TextEditingController searchController,
-  }) : _searchController = searchController;
-
-  final TextEditingController _searchController;
+  final TextEditingController searchController;
+  const AppBarSearch({super.key, required this.searchController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +16,13 @@ class AppBarSearch extends StatelessWidget {
             child: SizedBox(
               width: width,
               child: TextField(
-                controller: _searchController,
+                controller: searchController,
                 decoration: InputDecoration(
                   hintText: 'Search',
                   prefixIcon: const Icon(Icons.search),
                   suffixIcon: IconButton(
                     onPressed: () {
-                      _searchController.clear();
+                      searchController.clear();
                     },
                     icon: const Icon(Icons.clear),
                   ),

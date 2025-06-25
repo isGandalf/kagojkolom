@@ -28,7 +28,7 @@ class DesktopLeftColumn extends StatelessWidget {
             },
           ),
           DesktopLeftColumnOption(
-            icon: Icons.favorite_border_rounded,
+            icon: Icons.favorite,
             optionName: 'Favourites',
             pageName: NotePageType.favourites,
             onTap: () {

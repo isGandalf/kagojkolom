@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/favourite_icon.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_dialog.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_dialog_for_update.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid_view.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';

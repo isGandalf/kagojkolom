@@ -17,18 +17,27 @@ class HomepageDesktop extends StatefulWidget {
 }
 
 class _HomepageDesktopState extends State<HomepageDesktop> {
+  late TextEditingController searchController;
+
   @override
   void initState() {
     super.initState();
+    searchController = TextEditingController();
     context.read<NotesBloc>().add(
       NotePageInitialEvent(notePageType: NotePageType.myNotes),
     );
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(searchController: searchController),
       body: Row(
         children: [
           // Left column - different note list
@@ -36,6 +45,7 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
 
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30),
 
@@ -43,7 +53,7 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
                 TakeANoteButton(),
 
                 // Notes Grid
-                NotesGrid(),
+                NotesGrid(searchController: searchController),
               ],
             ),
           ),

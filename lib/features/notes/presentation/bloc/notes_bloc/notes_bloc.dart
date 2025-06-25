@@ -105,7 +105,9 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         emit(NotesLoadingFailedState(notePageType: event.notePageType));
       },
       (allNotes) {
-        final myNotes = allNotes;
+        final myNotes =
+            allNotes.where((note) => note.isDeleted == false).toList();
+
         final favNotes =
             allNotes.where((note) => note.isFavourite == true).toList();
         final trashNotes =
@@ -168,7 +170,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         emit(NotesLoadingFailedState(notePageType: event.notePageType));
       },
       (allNotes) {
-        final myNotes = allNotes;
+        final myNotes =
+            allNotes.where((note) => note.isDeleted == false).toList();
         final favNotes =
             allNotes.where((note) => note.isFavourite == true).toList();
         final trashNotes =
@@ -200,6 +203,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     }
 
     emit(DeleteNoteSuccessState());
+    emit(NotesLoadingState(notePageType: event.notePageType));
 
     final noteList = await noteUsecases.fetchNotes();
     return noteList.fold(
@@ -208,7 +212,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
         emit(NotesLoadingFailedState(notePageType: event.notePageType));
       },
       (allNotes) {
-        final myNotes = allNotes;
+        final myNotes =
+            allNotes.where((note) => note.isDeleted == false).toList();
         final favNotes =
             allNotes.where((note) => note.isFavourite == true).toList();
         final trashNotes =
@@ -250,7 +255,8 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       (failure) =>
           emit(NotesLoadingFailedState(notePageType: event.notePageType)),
       (allNotes) {
-        final myNotes = allNotes;
+        final myNotes =
+            allNotes.where((note) => note.isDeleted == false).toList();
         final favNotes =
             allNotes.where((note) => note.isFavourite == true).toList();
         final trashNotes =
