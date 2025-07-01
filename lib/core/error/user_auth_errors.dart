@@ -19,3 +19,25 @@ class UnableToLoginUser extends UserAuthErrors {
     return message;
   }
 }
+
+class UnableToSignOutUser extends UserAuthErrors {
+  final String message;
+
+  UnableToSignOutUser({required this.message});
+
+  @override
+  String getError() {
+    return message;
+  }
+}
+
+class UpdateUserDetails extends UserAuthErrors {
+  final String message;
+
+  UpdateUserDetails({required this.message});
+
+  @override
+  String getError() {
+    return message;
+  }
+}

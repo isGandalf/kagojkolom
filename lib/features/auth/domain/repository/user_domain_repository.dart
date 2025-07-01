@@ -13,4 +13,10 @@ abstract interface class UserDomainRepository {
     String email,
     String password,
   );
+  Future<Either<UnableToSignOutUser, void>> userSignOut();
+  Future<Either<UpdateUserDetails, UserEntity>> updateUserDetails(
+    String firstName,
+    String lastName,
+    String profilePictureUrl,
+  );
 }

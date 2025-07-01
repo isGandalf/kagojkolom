@@ -9,6 +9,7 @@ import 'package:kagojkolom/features/auth/data/source/user_auth.dart';
 import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/about/about_page.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/splashscreen/splashscreen_parent.dart';
 import 'package:kagojkolom/features/notes/data/repository/notes_data_repository.dart';
@@ -66,7 +67,7 @@ void main() async {
       providers: [
         BlocProvider(create: (context) => SignupBloc(userDomainUsecases)),
         BlocProvider(create: (context) => LoginBloc(userDomainUsecases)),
-        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => UserBloc(userDomainUsecases)),
         BlocProvider(create: (context) => NotesBloc(noteUsecases)),
       ],
       child: KagojKolom(currentUser: currentUser),

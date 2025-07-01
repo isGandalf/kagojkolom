@@ -96,6 +96,19 @@ flutter:
   assets:
     - lib\assets\images\2151100221.jpg
     - lib\assets\images\icon.png
+    - lib\assets\images\ava-1.jpg
+    - lib\assets\images\ava-2.jpg
+    - lib\assets\images\ava-3.jpg
+    - lib\assets\images\ava-4.jpg
+    - lib\assets\images\ava-5.jpg
+    - lib\assets\images\ava-6.jpg
+    - lib\assets\images\ava-7.jpg
+    - lib\assets\images\ava-8.jpg
+    - lib\assets\images\ava-9.jpg
+    - lib\assets\images\ava-10.jpg
+    - lib\assets\images\ava-11.jpg
+    - lib\assets\images\ava-12.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

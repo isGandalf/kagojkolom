@@ -16,7 +16,17 @@ class UserDataRepository implements UserDomainRepository {
     String email,
     String password,
   ) async {
-    return await userAuth.createNewUser(firstName, lastName, email, password);
+    final user = await userAuth.createNewUser(
+      firstName,
+      lastName,
+      email,
+      password,
+    );
+
+    return user.fold(
+      (failure) => Left(UnableToCreateNewUser(message: failure.message)),
+      (_) => Right(null),
+    );
   }
 
   @override
@@ -29,6 +39,33 @@ class UserDataRepository implements UserDomainRepository {
     return userModel.fold(
       (failure) => Left(UnableToLoginUser(message: failure.message)),
       (entity) => Right(entity.toEntity()),
+    );
+  }
+
+  @override
+  Future<Either<UnableToSignOutUser, void>> userSignOut() async {
+    final result = await userAuth.userSignOut();
+    return result.fold(
+      (failure) => Left(UnableToSignOutUser(message: failure.message)),
+      (_) => Right(null),
+    );
+  }
+
+  @override
+  Future<Either<UpdateUserDetails, UserEntity>> updateUserDetails(
+    String firstName,
+    String lastName,
+    String profilePictureUrl,
+  ) async {
+    final userModel = await userAuth.updateUserDetails(
+      firstName,
+      lastName,
+      profilePictureUrl,
+    );
+
+    return userModel.fold(
+      (failure) => Left(UpdateUserDetails(message: failure.message)),
+      (model) => Right(model.toEntity()),
     );
   }
 }

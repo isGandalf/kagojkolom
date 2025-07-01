@@ -8,3 +8,15 @@ final class LoadUserEvent extends UserEvent {
 
   LoadUserEvent({required this.userEntity});
 }
+
+final class UpdateUserDetailsButtonPressedEvent extends UserEvent {
+  final String firstName;
+  final String lastName;
+  final String profilePictureUrl;
+
+  UpdateUserDetailsButtonPressedEvent({
+    required this.firstName,
+    required this.lastName,
+    required this.profilePictureUrl,
+  });
+}

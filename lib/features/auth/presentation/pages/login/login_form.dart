@@ -69,6 +69,7 @@ class _LoginFormState extends State<LoginForm> {
         }
       },
       builder: (context, state) {
+        logger.d(state.runtimeType);
         final isLoading = state is LoginLoadingState;
 
         return GestureDetector(

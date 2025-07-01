@@ -44,6 +44,7 @@ class _HomepageTabletState extends State<HomepageTablet> {
 
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(height: 30),
 

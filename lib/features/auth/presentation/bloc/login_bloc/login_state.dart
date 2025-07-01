@@ -23,3 +23,11 @@ final class LoginFailedActionState extends LoginActionState {
 
   LoginFailedActionState({required this.message});
 }
+
+final class SignOutSuccessActionState extends LoginActionState {}
+
+final class SignOutFailedActionState extends LoginActionState {
+  final String message;
+
+  SignOutFailedActionState({required this.message});
+}

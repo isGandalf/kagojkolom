@@ -15,6 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc(this.userUsecases) : super(LoginInitial()) {
     on<LoginButtonPressedEvent>(loginButtonPressedEvent);
+    on<SignOutButtonPressedEvent>(signOutButtonPressedEvent);
   }
 
   FutureOr<void> loginButtonPressedEvent(
@@ -26,11 +27,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       event.email,
       event.password,
     );
-    return userEntity.fold((failure) {
-      emit(LoginFailedActionState(message: failure.message));
-    }, (entity) {
-      
-      emit(LoginSuccessActionState(userEntity: entity));
-    });
+    return userEntity.fold(
+      (failure) {
+        emit(LoginFailedActionState(message: failure.message));
+      },
+      (entity) {
+        emit(LoginSuccessActionState(userEntity: entity));
+      },
+    );
+  }
+
+  FutureOr<void> signOutButtonPressedEvent(
+    SignOutButtonPressedEvent event,
+    Emitter<LoginState> emit,
+  ) async {
+    emit(LoginLoadingState());
+    final result = await userUsecases.userSignOut();
+
+    return result.fold(
+      (failure) => emit(SignOutFailedActionState(message: failure.message)),
+      (_) {
+        emit(SignOutSuccessActionState());
+        //emit(LoginInitial());
+        emit(LoginStandardState());
+      },
+    );
   }
 }

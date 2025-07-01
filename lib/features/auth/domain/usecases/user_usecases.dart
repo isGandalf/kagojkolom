@@ -14,11 +14,16 @@ class UserUsecases {
     String email,
     String password,
   ) async {
-    return await userDomainRepository.createNewUser(
+    final user = await userDomainRepository.createNewUser(
       firstName,
       lastName,
       email,
       password,
+    );
+
+    return user.fold(
+      (failure) => Left(UnableToCreateNewUser(message: failure.message)),
+      (_) => Right(null),
     );
   }
 
@@ -26,6 +31,36 @@ class UserUsecases {
     String email,
     String password,
   ) async {
-    return await userDomainRepository.loginUser(email, password);
+    final result = await userDomainRepository.loginUser(email, password);
+
+    return result.fold(
+      (failure) => Left(UnableToLoginUser(message: failure.message)),
+      (user) => Right(user),
+    );
+  }
+
+  Future<Either<UnableToSignOutUser, void>> userSignOut() async {
+    final result = await userDomainRepository.userSignOut();
+
+    return result.fold(
+      (failure) => Left(UnableToSignOutUser(message: failure.message)),
+      (_) => Right(null),
+    );
+  }
+
+  Future<Either<UpdateUserDetails, UserEntity>> updateUserDetails(
+    String firstName,
+    String lastName,
+    String profilePictureUrl,
+  ) async {
+    final result = await userDomainRepository.updateUserDetails(
+      firstName,
+      lastName,
+      profilePictureUrl,
+    );
+    return result.fold(
+      (failure) => Left(UpdateUserDetails(message: failure.message)),
+      (entity) => Right(entity),
+    );
   }
 }

@@ -1,0 +1,184 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagojkolom/core/theme/app_colors_common.dart';
+import 'package:kagojkolom/core/theme/app_colors_dark.dart';
+import 'package:kagojkolom/core/theme/app_colors_light.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/about/about_page.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_for_about_setting.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/delete_all_notes.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_buttons.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_picture.dart';
+import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_user_name.dart';
+import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
+
+class EditProfilePage extends StatelessWidget {
+  const EditProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBarForAboutSetting(),
+      body: Center(
+        heightFactor: 1.2,
+        child: SingleChildScrollView(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 700, maxHeight: 550),
+
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Back button
+                BackButton(onPressed: () => Navigator.pop(context)),
+                SizedBox(width: 15),
+
+                // edit profile
+                EditProfile(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EditProfile extends StatefulWidget {
+  const EditProfile({super.key});
+
+  @override
+  State<EditProfile> createState() => _EditProfileState();
+}
+
+class _EditProfileState extends State<EditProfile> {
+  late TextEditingController _firstName;
+  late TextEditingController _lastName;
+
+  @override
+  void initState() {
+    super.initState();
+    _firstName = TextEditingController();
+    _lastName = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _firstName.dispose();
+    _lastName.dispose();
+    super.dispose();
+  }
+
+  Future<dynamic> updateUserFailed(
+    BuildContext context,
+    UpdateUserDetailsFailedActionState state,
+  ) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: Icon(Icons.cancel_outlined, size: 30),
+          iconColor: Colors.redAccent.shade400,
+          iconPadding: EdgeInsets.all(10),
+          content: Text(state.message),
+        );
+      },
+    );
+  }
+
+  Future<dynamic> updateUserSuccess(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          icon: Icon(Icons.check_circle_outline_outlined, size: 30),
+          iconColor: Colors.lightGreen,
+          iconPadding: EdgeInsets.all(10),
+          content: Text('Updated successfully'),
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color:
+              isDarkTheme
+                  ? AppColorsDark.noteBackgroundColor
+                  : AppColorsLight.noteBackgroundColor,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: BlocConsumer<UserBloc, UserState>(
+            listenWhen: (previous, current) => current is UserActionStates,
+            listener: (context, state) {
+              if (state is UpdateUserDetailsSuccessActionState) {
+                updateUserSuccess(context);
+              }
+              if (state is UpdateUserDetailsFailedActionState) {
+                updateUserFailed(context, state);
+              }
+            },
+            builder: (context, state) {
+              if (state is LoggedInUserState) {
+                final firstName = state.userEntity.firstName;
+                final lastName = state.userEntity.lastName;
+                final profilePictureUrl = state.userEntity.profilePictureUrl;
+                print(profilePictureUrl);
+
+                // set the data from state to controllers
+                _firstName.text = firstName;
+                _lastName.text = lastName;
+
+                // main column - holds all data on view
+                return Column(
+                  children: [
+                    // heading
+                    Text(
+                      'Edit profile',
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(height: 25),
+
+                    // Profile picture
+                    EditProfilePicture(profilePictureUrl: profilePictureUrl),
+                    SizedBox(height: 30),
+
+                    // two text feilds for name
+                    EditUserName(
+                      firstName: _firstName,
+                      isDarkTheme: isDarkTheme,
+                      lastName: _lastName,
+                    ),
+                    SizedBox(height: 30),
+
+                    // delete all notes feature
+                    Divider(),
+                    DeleteAllNotes(),
+                    Divider(),
+                    SizedBox(height: 30),
+
+                    // buttons to save and cancel
+                    EditProfileButtons(
+                      firstName: _firstName,
+                      lastName: _lastName,
+                      profilePictureUrl: profilePictureUrl,
+                    ),
+                  ],
+                );
+              } else {
+                return SizedBox.shrink();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -23,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         else if (state is LoggedInUserState) {
           final firstName = state.userEntity.firstName;
           final lastName = state.userEntity.lastName;
+          final profilePicture = state.userEntity.profilePictureUrl;
           return SafeArea(
             child: Column(
               children: [
@@ -34,10 +35,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppBarBrandIcon(),
-                        AppBarSearch(searchController: searchController,),
+                        AppBarSearch(searchController: searchController),
                         AppBarProfileSection(
                           firstName: firstName,
                           lastName: lastName,
+                          profilePicture: profilePicture,
                         ),
                       ],
                     ),

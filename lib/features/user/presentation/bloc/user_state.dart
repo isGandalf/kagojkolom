@@ -12,3 +12,14 @@ final class LoggedInUserState extends UserState {
 
   LoggedInUserState({required this.userEntity});
 }
+
+// Action states
+final class UserActionStates extends UserState {}
+
+final class UpdateUserDetailsSuccessActionState extends UserActionStates {}
+
+final class UpdateUserDetailsFailedActionState extends UserActionStates {
+  final String message;
+
+  UpdateUserDetailsFailedActionState({required this.message});
+}

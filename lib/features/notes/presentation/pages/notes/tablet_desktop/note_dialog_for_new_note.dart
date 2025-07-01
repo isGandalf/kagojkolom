@@ -15,6 +15,7 @@ class NoteDialogForNewNote extends StatefulWidget {
 class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
   late TextEditingController _noteTitleController;
   late TextEditingController _noteContentController;
+  bool isNoteSaved = false;
 
   @override
   void initState() {
@@ -31,15 +32,18 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
   }
 
   Future<void> _saveNote() async {
-    if (_noteTitleController.text.isNotEmpty ||
-        _noteContentController.text.isNotEmpty) {
-      context.read<NotesBloc>().add(
-        AddNewNoteButtonPressedEvent(
-          noteTitle: _noteTitleController.text,
-          noteContent: _noteContentController.text,
-          notePageType: NotePageType.myNotes,
-        ),
-      );
+    if (!isNoteSaved) {
+      if (_noteTitleController.text.isNotEmpty ||
+          _noteContentController.text.isNotEmpty) {
+        context.read<NotesBloc>().add(
+          AddNewNoteButtonPressedEvent(
+            noteTitle: _noteTitleController.text,
+            noteContent: _noteContentController.text,
+            notePageType: NotePageType.myNotes,
+          ),
+        );
+      }
+      isNoteSaved = true;
     }
   }
 
@@ -51,6 +55,7 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
       canPop: true,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) {
+        
           await _saveNote();
         } else {
           print('Error auto saving');
