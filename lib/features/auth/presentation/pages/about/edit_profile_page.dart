@@ -52,12 +52,16 @@ class EditProfile extends StatefulWidget {
 class _EditProfileState extends State<EditProfile> {
   late TextEditingController _firstName;
   late TextEditingController _lastName;
+  late String _profilePictureUrl;
+
+  String? selectedAvatar;
 
   @override
   void initState() {
     super.initState();
     _firstName = TextEditingController();
     _lastName = TextEditingController();
+    _profilePictureUrl = '';
   }
 
   @override
@@ -98,6 +102,12 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
+  void _updateProfilePicture(String newAvatar) {
+    setState(() {
+      _profilePictureUrl = newAvatar;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
@@ -126,12 +136,16 @@ class _EditProfileState extends State<EditProfile> {
               if (state is LoggedInUserState) {
                 final firstName = state.userEntity.firstName;
                 final lastName = state.userEntity.lastName;
-                final profilePictureUrl = state.userEntity.profilePictureUrl;
-                print(profilePictureUrl);
 
                 // set the data from state to controllers
                 _firstName.text = firstName;
                 _lastName.text = lastName;
+
+                // set profilePicture
+                if (_profilePictureUrl.isEmpty) {
+                  _profilePictureUrl = state.userEntity.profilePictureUrl;
+                }
+                print(' Inside state -- > $_profilePictureUrl');
 
                 // main column - holds all data on view
                 return Column(
@@ -147,7 +161,10 @@ class _EditProfileState extends State<EditProfile> {
                     SizedBox(height: 25),
 
                     // Profile picture
-                    EditProfilePicture(profilePictureUrl: profilePictureUrl),
+                    EditProfilePicture(
+                      profilePictureUrl: _profilePictureUrl,
+                      onAvatarChanged: _updateProfilePicture,
+                    ),
                     SizedBox(height: 30),
 
                     // two text feilds for name
@@ -168,7 +185,7 @@ class _EditProfileState extends State<EditProfile> {
                     EditProfileButtons(
                       firstName: _firstName,
                       lastName: _lastName,
-                      profilePictureUrl: profilePictureUrl,
+                      profilePictureUrl: _profilePictureUrl,
                     ),
                   ],
                 );

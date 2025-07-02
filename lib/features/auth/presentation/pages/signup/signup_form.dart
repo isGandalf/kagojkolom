@@ -1,5 +1,7 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/signup/signup_parent.dart';
@@ -144,6 +146,33 @@ class _SignupFormState extends State<SignupForm> {
                                 );
                               },
                               isLoading: isLoading,
+                            ),
+                          ),
+                          SizedBox(height: 30),
+                          Text.rich(
+                            TextSpan(
+                              text: 'Already have an account? ',
+                              children: <InlineSpan>[
+                                TextSpan(
+                                  text: ' Click here',
+                                  recognizer:
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                      const LoginParent(),
+                                            ),
+                                          );
+                                        },
+                                  style: TextStyle(
+                                    color: AppColorsCommon.primaryBlue,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

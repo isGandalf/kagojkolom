@@ -1,9 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/global/logger.dart';
+import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/signup/signup_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/shared/widgets/custom_dialog_box_with_one_button.dart';
@@ -127,6 +130,33 @@ class _LoginFormState extends State<LoginForm> {
                             ),
                           ),
                           SizedBox(height: 30),
+                          Text.rich(
+                            TextSpan(
+                              text: 'Don\'t have an account?',
+                              children: <InlineSpan>[
+                                TextSpan(
+                                  mouseCursor: SystemMouseCursors.click,
+                                  recognizer:
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                      const SignupParent(),
+                                            ),
+                                          );
+                                        },
+                                  text: '  Click here',
+                                  style: const TextStyle(
+                                    color: AppColorsCommon.primaryBlue,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

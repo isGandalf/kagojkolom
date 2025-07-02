@@ -36,7 +36,7 @@ class UserAuth {
         'firstName': firstName,
         'lastName': lastName,
         'email': email,
-        'profilePictureUrl': 'lib/assets/images/2151100221.jpg',
+        'profilePictureUrl': 'lib/assets/images/2151100221.jpg', // default
       });
 
       return Right(null);

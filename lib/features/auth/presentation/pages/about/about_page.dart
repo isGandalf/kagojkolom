@@ -26,6 +26,7 @@ class AboutPage extends StatelessWidget {
               if (state is LoggedInUserState) {
                 final firstName = state.userEntity.firstName;
                 final lastName = state.userEntity.lastName;
+                final email = state.userEntity.email;
                 final profilePictureUrl = state.userEntity.profilePictureUrl;
 
                 return Container(
@@ -115,7 +116,7 @@ class AboutPage extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20),
                                     Text(
-                                      'email@email.com',
+                                      email,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
