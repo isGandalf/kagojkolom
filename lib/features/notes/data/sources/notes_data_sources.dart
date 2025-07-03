@@ -176,7 +176,7 @@ class NotesDataSources {
     }
   }
 
-  // DELETE, a note from db
+  // DELETE, a note (change isDeleted flag to true)
   Future<Either<NotesErrors, void>> deleteNote(int id) async {
     try {
       final user = currentUser;
@@ -195,7 +195,44 @@ class NotesDataSources {
     } on FirebaseException catch (e) {
       return Left(
         DeleteNoteError(
-          message: 'Firebase error occured when deleting note --> $e',
+          message:
+              'Firebase delete update error occured when deleting note --> $e',
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(
+        DeleteNoteError(
+          message: 'An error occured while updating delete note --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        DeleteNoteError(
+          message:
+              'An unexpected error occured while updating delete note --> $e',
+        ),
+      );
+    }
+  }
+
+  // DELETE, a note from db
+  Future<Either<NotesErrors, void>> deleteNoteFromDb(int noteId) async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(DeleteNoteError(message: 'No user found'));
+      }
+
+      await firebaseFirestore
+          .collection('notes')
+          .doc(noteId.toString())
+          .delete();
+
+      return Right(null);
+    } on FirebaseException catch (e) {
+      return Left(
+        DeleteNoteError(
+          message: 'Firebase error occured when deleting note from db --> $e',
         ),
       );
     } on Exception catch (e) {
@@ -212,49 +249,49 @@ class NotesDataSources {
   }
 
   // fetch list of favourite notes
-  Future<Either<NotesErrors, List<NoteModel>>> fetchFavouriteNotes() async {
-    try {
-      final user = currentUser;
-      if (user == null) {
-        return Left(FetchNotesError(message: 'No user found'));
-      }
+  // Future<Either<NotesErrors, List<NoteModel>>> fetchFavouriteNotes() async {
+  //   try {
+  //     final user = currentUser;
+  //     if (user == null) {
+  //       return Left(FetchNotesError(message: 'No user found'));
+  //     }
 
-      final userId = user.uid;
-      final snapShotList =
-          await firebaseFirestore
-              .collection('notes')
-              .where('isFavourite', isEqualTo: true)
-              .where('ownerId', isEqualTo: userId)
-              .get();
+  //     final userId = user.uid;
+  //     final snapShotList =
+  //         await firebaseFirestore
+  //             .collection('notes')
+  //             .where('isFavourite', isEqualTo: true)
+  //             .where('ownerId', isEqualTo: userId)
+  //             .get();
 
-      if (snapShotList.docs.isEmpty) {
-        return Right([]);
-      }
+  //     if (snapShotList.docs.isEmpty) {
+  //       return Right([]);
+  //     }
 
-      final favNoteList =
-          snapShotList.docs
-              .map((eachNote) => NoteModel.fromJson(eachNote.data()))
-              .toList();
+  //     final favNoteList =
+  //         snapShotList.docs
+  //             .map((eachNote) => NoteModel.fromJson(eachNote.data()))
+  //             .toList();
 
-      return Right(favNoteList);
-    } on FirebaseException catch (e) {
-      return Left(
-        FetchNotesError(
-          message: 'Firebase error occured when fetching fav notes --> $e',
-        ),
-      );
-    } on Exception catch (e) {
-      return Left(
-        FetchNotesError(
-          message: 'An error occured while fetching fav notes --> $e',
-        ),
-      );
-    } catch (e) {
-      return Left(
-        FetchNotesError(message: 'An unexpected error occured --> $e'),
-      );
-    }
-  }
+  //     return Right(favNoteList);
+  //   } on FirebaseException catch (e) {
+  //     return Left(
+  //       FetchNotesError(
+  //         message: 'Firebase error occured when fetching fav notes --> $e',
+  //       ),
+  //     );
+  //   } on Exception catch (e) {
+  //     return Left(
+  //       FetchNotesError(
+  //         message: 'An error occured while fetching fav notes --> $e',
+  //       ),
+  //     );
+  //   } catch (e) {
+  //     return Left(
+  //       FetchNotesError(message: 'An unexpected error occured --> $e'),
+  //     );
+  //   }
+  // }
 
   // Add to favourite
   Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
@@ -297,6 +334,89 @@ class NotesDataSources {
     } catch (e) {
       return Left(
         UpdateNoteError(message: 'An unexpected error occured --> $e'),
+      );
+    }
+  }
+
+  // Share note
+  Future<Either<NotesErrors, void>> shareNote(int noteId, String email) async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(SharedWithMeError(message: 'No user found'));
+      }
+
+      await firebaseFirestore.collection('notes').doc(noteId.toString()).update(
+        {
+          'sharedWithUserIds': FieldValue.arrayUnion([email]),
+        },
+      );
+
+      return Right(null);
+    } on FirebaseException catch (e) {
+      return Left(SharedWithMeError(message: 'Failed to share note --> $e'));
+    } on Exception catch (e) {
+      return Left(
+        SharedWithMeError(
+          message: 'An error occured while sharing note --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        SharedWithMeError(
+          message: 'An unexpected error occured while sharing note --> $e',
+        ),
+      );
+    }
+  }
+
+  // Fetch notes that are shared with user
+  Future<Either<NotesErrors, List<NoteModel>>> fetchNotesSharedWithMe() async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(SharedWithMeError(message: 'No user found'));
+      }
+
+      // Note: sharedWithUserIds contain emails
+      final userEmail = user.email;
+      final noteListSnapshot =
+          await firebaseFirestore
+              .collection('notes')
+              .where('sharedWithUserIds', arrayContains: userEmail)
+              .where('isDeleted', isEqualTo: false)
+              .get();
+
+      if (noteListSnapshot.docs.isEmpty) {
+        return Right([]);
+      }
+
+      final noteList =
+          noteListSnapshot.docs
+              .map((notes) => NoteModel.fromJson(notes.data()))
+              .toList();
+
+      print('First shared note Datasource --> ${noteList.first.noteTitle}');
+
+      return Right(noteList);
+    } on FirebaseException catch (e) {
+      return Left(
+        SharedWithMeError(
+          message: 'Failed to fetch shared notes from db --> $e',
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(
+        SharedWithMeError(
+          message: 'An error occured while fetching shared notes --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        SharedWithMeError(
+          message:
+              'An unexpected error occured while fetching shared notes --> $e',
+        ),
       );
     }
   }

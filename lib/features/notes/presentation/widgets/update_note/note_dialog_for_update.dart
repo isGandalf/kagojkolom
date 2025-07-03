@@ -74,7 +74,7 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
       },
       child: Dialog(
         child: Container(
-          width: 600,
+          width: 700,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

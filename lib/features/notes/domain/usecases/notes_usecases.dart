@@ -84,12 +84,39 @@ class NoteUsecases {
     );
   }
 
+  // Delete note from db
+  Future<Either<NotesErrors, void>> deleteNoteFromDb(int noteId) async {
+    final result = await notesDomainRepository.deleteNoteFromDb(noteId);
+    return result.fold(
+      (failure) => Left(DeleteNoteError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
+
   // Add to Favourite
   Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
     final result = await notesDomainRepository.addToFavourite(noteId);
     return result.fold(
       (failure) => Left(UpdateNoteError(message: failure.toString())),
       (_) => Right(null),
+    );
+  }
+
+  // shareNote
+  Future<Either<NotesErrors, void>> shareNote(int noteId, String email) async {
+    final result = await notesDomainRepository.shareNote(noteId, email);
+    return result.fold(
+      (failure) => Left(SharedWithMeError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
+
+  // fetch shared notes
+  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesSharedWithMe() async {
+    final result = await notesDomainRepository.fetchNotesSharedWithMe();
+    return result.fold(
+      (failure) => Left(SharedWithMeError(message: failure.message)),
+      (noteList) => Right(noteList),
     );
   }
 }

@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/favourite_icon.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_dialog_for_update.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/favourite_icon.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_dialog_for_view.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/update_note/note_dialog_for_update.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid_view.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
 
-class NoteCard extends StatefulWidget {
+class NoteCard extends StatelessWidget {
   const NoteCard({super.key, required this.note, required this.notePageType});
 
   final NoteEntity note;
   final NotePageType notePageType;
 
-  @override
-  State<NoteCard> createState() => _NoteCardState();
-}
-
-class _NoteCardState extends State<NoteCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -28,12 +24,25 @@ class _NoteCardState extends State<NoteCard> {
         child: InkWell(
           hoverColor: AppColorsCommon.primaryBlue,
           onTap: () {
-            showDialog(
-              context: context,
-              builder: (context) {
-                return NoteDialogForUpdate(noteEntity: widget.note);
-              },
-            );
+            if (notePageType == NotePageType.sharedWithMe ||
+                notePageType == NotePageType.trash) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return NoteDialogForView(
+                    noteEntity: note,
+                    notePageType: notePageType,
+                  );
+                },
+              );
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return NoteDialogForUpdate(noteEntity: note);
+                },
+              );
+            }
           },
           child: Card(
             child: Padding(
@@ -46,7 +55,7 @@ class _NoteCardState extends State<NoteCard> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.note.noteTitle,
+                          note.noteTitle,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -56,24 +65,25 @@ class _NoteCardState extends State<NoteCard> {
                         ),
                         SizedBox(height: 10),
                         Text(
-                          widget.note.noteContent,
+                          note.noteContent,
                           maxLines: 10,
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 5),
-                        widget.notePageType == NotePageType.trash
+                        notePageType == NotePageType.trash ||
+                                notePageType == NotePageType.sharedWithMe
                             ? SizedBox()
                             : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 FavouriteIconButton(
-                                  noteId: widget.note.noteId,
-                                  currentPage: widget.notePageType,
-                                  key: ValueKey(widget.note.noteId),
+                                  noteId: note.noteId,
+                                  currentPage: notePageType,
+                                  key: ValueKey(note.noteId),
                                 ),
                                 ThreeDotMenu(
-                                  noteId: widget.note.noteId,
-                                  notePageType: widget.notePageType,
+                                  noteId: note.noteId,
+                                  notePageType: notePageType,
                                 ),
                               ],
                             ),

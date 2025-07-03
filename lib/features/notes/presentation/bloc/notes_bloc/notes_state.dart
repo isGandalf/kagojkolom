@@ -74,3 +74,21 @@ final class DeleteNoteFailedState extends NotesActionState {
 final class AddToFavouriteSuccessState extends NotesActionState {}
 
 final class AddToFavouriteFailedState extends NotesActionState {}
+
+final class DeleteNoteForeverSuccessState extends NotesActionState {}
+
+final class DeleteNoteForeverFailedState extends NotesActionState {
+  final String message;
+
+  DeleteNoteForeverFailedState({required this.message});
+}
+
+final class ShareSuccessState extends NotesActionState {
+
+}
+
+final class ShareFailedState extends NotesActionState {
+  final String message;
+
+  ShareFailedState({required this.message});
+}

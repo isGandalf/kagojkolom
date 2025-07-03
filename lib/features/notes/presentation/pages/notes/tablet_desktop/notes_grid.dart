@@ -69,6 +69,7 @@ class _NotesGridState extends State<NotesGrid> {
             child: Center(child: CircularProgressIndicator.adaptive()),
           );
         } else {
+          print(state.runtimeType);
           return const Expanded(
             child: Center(child: Text('Failed to load your notes')),
           );

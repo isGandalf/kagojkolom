@@ -7,7 +7,6 @@ final class NotePageInitialEvent extends NotesEvent {
   final NotePageType notePageType;
 
   NotePageInitialEvent({required this.notePageType});
-
 }
 
 final class NotePageOptionPressedEvent extends NotesEvent {
@@ -54,15 +53,35 @@ final class DeleteNoteButtonPressedEvent extends NotesEvent {
   final int noteId;
   final NotePageType notePageType;
 
-  DeleteNoteButtonPressedEvent({required this.noteId, required this.notePageType,
+  DeleteNoteButtonPressedEvent({
+    required this.noteId,
+    required this.notePageType,
+  });
+}
+
+final class DeleteNoteForeverButtonPressedEvent extends NotesEvent {
+  final int noteId;
+  final NotePageType notePageType;
+
+  DeleteNoteForeverButtonPressedEvent({
+    required this.noteId,
+    required this.notePageType,
   });
 }
 
 final class FavouriteButtonPressedEvent extends NotesEvent {
   final int noteId;
   final NotePageType notePageType;
-  
 
-  FavouriteButtonPressedEvent({required this.noteId, required this.notePageType,
+  FavouriteButtonPressedEvent({
+    required this.noteId,
+    required this.notePageType,
   });
+}
+
+final class ShareButtonPressedEvent extends NotesEvent {
+  final int noteId;
+  final String email;
+
+  ShareButtonPressedEvent({required this.noteId, required this.email});
 }

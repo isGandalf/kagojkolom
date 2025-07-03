@@ -34,3 +34,10 @@ class DeleteNoteError implements NotesErrors {
 
   DeleteNoteError({required this.message});
 }
+
+class SharedWithMeError implements NotesErrors {
+  @override
+  final String message;
+
+  SharedWithMeError({required this.message});
+}

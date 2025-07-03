@@ -68,4 +68,34 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
       (_) => Right(null),
     );
   }
+
+  @override
+  Future<Either<NotesErrors, void>> shareNote(int noteId, String email) async {
+    final result = await notesDataSources.shareNote(noteId, email);
+    return result.fold(
+      (failure) => Left(SharedWithMeError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
+
+  @override
+  Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesSharedWithMe() async {
+    final result = await notesDataSources.fetchNotesSharedWithMe();
+    return result.fold(
+      (failure) => Left(SharedWithMeError(message: failure.message)),
+      (noteList) {
+        final noteListEntity = noteList.map((note) => note.toEntity()).toList();
+        return Right(noteListEntity);
+      },
+    );
+  }
+
+  @override
+  Future<Either<NotesErrors, void>> deleteNoteFromDb(int noteId) async {
+    final result = await notesDataSources.deleteNoteFromDb(noteId);
+    return result.fold(
+      (failure) => Left(DeleteNoteError(message: failure.toString())),
+      (_) => Right(null),
+    );
+  }
 }
