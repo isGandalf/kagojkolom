@@ -36,7 +36,12 @@ class AboutPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Back arrow
-                      BackButton(onPressed: () => Navigator.pop(context)),
+                      BackButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        },
+                      ),
                       SizedBox(width: 15),
 
                       // User detials content
@@ -66,10 +71,7 @@ class AboutPage extends StatelessWidget {
                                     borderRadius: BorderRadiusGeometry.circular(
                                       10,
                                     ),
-                                    child: Image.asset(
-                                      profilePictureUrl ??
-                                          'lib/assets/images/2151100221.jpg',
-                                    ),
+                                    child: Image.asset(profilePictureUrl),
                                   ),
                                 ),
 

@@ -85,3 +85,5 @@ final class ShareButtonPressedEvent extends NotesEvent {
 
   ShareButtonPressedEvent({required this.noteId, required this.email});
 }
+
+final class DeleteAllNotesButtonPressedEvent extends NotesEvent {}

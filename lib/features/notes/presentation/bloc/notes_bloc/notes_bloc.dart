@@ -25,6 +25,7 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
       deleteNoteForeverButtonPressedEvent,
     );
     on<ShareButtonPressedEvent>(shareButtonPressedEvent);
+    on<DeleteAllNotesButtonPressedEvent>(deleteAllNotesButtonPressedEvent);
   }
 
   // Initial state - In this state the homepage will load with all the notes
@@ -347,5 +348,76 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
     Emitter<NotesState> emit,
   ) async {
     await noteUsecases.shareNote(event.noteId, event.email);
+  }
+
+  FutureOr<void> deleteAllNotesButtonPressedEvent(
+    DeleteAllNotesButtonPressedEvent event,
+    Emitter<NotesState> emit,
+  ) async {
+    emit(NotesDeletingState());
+    final result = await noteUsecases.deleteAllNotes();
+
+    return result.fold(
+      (failure) async {
+        emit(DeleteAllNotesFailedState(message: '${failure.message}.'));
+        final noteList = await noteUsecases.fetchNotes();
+        noteList.fold(
+          (failure) =>
+              emit(NotesLoadingFailedState(notePageType: NotePageType.myNotes)),
+          (notes) {
+            final myNotes =
+                notes.where((note) => note.isDeleted == false).toList();
+            final favNotes =
+                myNotes.where((note) => note.isFavourite == true).toList();
+            final trashNotes =
+                notes.where((note) => note.isDeleted == true).toList();
+            emit(
+              DeleteAllNotesFailedState(
+                message: 'Total notes remaining are $myNotes',
+              ),
+            );
+            emit(
+              NotesLoadedState(
+                notePageType: NotePageType.myNotes,
+                myNotes: myNotes,
+                favNotes: favNotes,
+                sharedWithMeNotes: [],
+                trashNotes: trashNotes,
+              ),
+            );
+          },
+        );
+      },
+      (message) async {
+        emit(DeleteAllNotesSuccessState(message: message));
+        final noteList = await noteUsecases.fetchNotes();
+        noteList.fold(
+          (failure) =>
+              emit(NotesLoadingFailedState(notePageType: NotePageType.myNotes)),
+          (notes) {
+            final myNotes =
+                notes.where((note) => note.isDeleted == false).toList();
+            final favNotes =
+                myNotes.where((note) => note.isFavourite == true).toList();
+            final trashNotes =
+                notes.where((note) => note.isDeleted == true).toList();
+            emit(
+              DeleteAllNotesFailedState(
+                message: 'Total notes remaining are $myNotes',
+              ),
+            );
+            emit(
+              NotesLoadedState(
+                notePageType: NotePageType.myNotes,
+                myNotes: myNotes,
+                favNotes: favNotes,
+                sharedWithMeNotes: [],
+                trashNotes: trashNotes,
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }

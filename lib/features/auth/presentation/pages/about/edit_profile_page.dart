@@ -5,7 +5,7 @@ import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/about/about_page.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_for_about_setting.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/shared/delete_all_notes.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/delete_all_notes.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_buttons.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_picture.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_user_name.dart';

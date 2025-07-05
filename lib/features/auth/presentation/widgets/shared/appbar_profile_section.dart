@@ -32,7 +32,14 @@ class AppBarProfileSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text(firstName),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  firstName,
+                  overflow: TextOverflow.clip,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                ),
+              ),
               SizedBox(width: 20),
               SizedBox(
                 height: 40,

@@ -11,4 +11,5 @@ abstract interface class NotesDomainRepository {
   Future<Either<NotesErrors, void>> shareNote(int noteId, String email);
   Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesSharedWithMe();
   Future<Either<NotesErrors, void>> deleteNoteFromDb(int noteId);
+  Future<Either<NotesErrors, String>> deleteAllNotes();
 }

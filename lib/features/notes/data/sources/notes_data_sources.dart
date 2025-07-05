@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kagojkolom/core/error/notes_errors.dart';
+import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/data/models/note_model.dart';
 
 class NotesDataSources {
@@ -416,6 +417,54 @@ class NotesDataSources {
         SharedWithMeError(
           message:
               'An unexpected error occured while fetching shared notes --> $e',
+        ),
+      );
+    }
+  }
+
+  // Delete all notes
+  Future<Either<NotesErrors, String>> deleteAllNotes() async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(DeleteNoteError(message: 'No user found'));
+      }
+
+      final userId = user.uid;
+
+      final noteDocs =
+          await firebaseFirestore
+              .collection('notes')
+              .where('ownerId', isEqualTo: userId)
+              .get();
+      if (noteDocs.docs.isEmpty) {
+        return Right('No notes available to delete');
+      }
+
+      final batch = firebaseFirestore.batch();
+      for (var doc in noteDocs.docs) {
+        batch.delete(doc.reference);
+      }
+
+      await batch.commit();
+      return Right('Deleted ${noteDocs.docs.length} notes');
+    } on FirebaseException catch (e) {
+      return Left(
+        DeleteNoteError(
+          message: 'Firebase exception occured while deleting all notes --> $e',
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(
+        DeleteNoteError(
+          message: 'An error occured while deleting all notes --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        DeleteNoteError(
+          message:
+              'An unexpected error occured while deleting all notes --> $e',
         ),
       );
     }

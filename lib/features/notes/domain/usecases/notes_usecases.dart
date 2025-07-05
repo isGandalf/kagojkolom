@@ -119,4 +119,13 @@ class NoteUsecases {
       (noteList) => Right(noteList),
     );
   }
+
+  // delete all notes from db
+  Future<Either<NotesErrors, String>> deleteAllNotes() async {
+    final result = await notesDomainRepository.deleteAllNotes();
+    return result.fold(
+      (failure) => Left(DeleteNoteError(message: failure.message)),
+      (message) => Right(message),
+    );
+  }
 }

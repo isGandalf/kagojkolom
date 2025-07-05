@@ -55,7 +55,6 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
       canPop: true,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) {
-        
           await _saveNote();
         } else {
           print('Error auto saving');
@@ -65,6 +64,7 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
       child: Dialog(
         child: Container(
           width: 600,
+          padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             color:
@@ -99,29 +99,35 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      'Close',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Close',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(width: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      _saveNote();
-                      Navigator.of(context).pop();
-                    },
-                    child: Text(
-                      'Save',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _saveNote();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Save',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),

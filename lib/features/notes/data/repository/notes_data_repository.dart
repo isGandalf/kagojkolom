@@ -50,7 +50,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     );
   }
 
-  // Delete note
+  // Delete note (move to trash)
   @override
   Future<Either<NotesErrors, void>> deleteNote(int noteId) async {
     final result = await notesDataSources.deleteNote(noteId);
@@ -60,6 +60,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     );
   }
 
+  // Add a note to favourite
   @override
   Future<Either<NotesErrors, void>> addToFavourite(int noteId) async {
     final result = await notesDataSources.addToFavourite(noteId);
@@ -69,6 +70,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     );
   }
 
+  // Share a note with an email
   @override
   Future<Either<NotesErrors, void>> shareNote(int noteId, String email) async {
     final result = await notesDataSources.shareNote(noteId, email);
@@ -78,6 +80,7 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     );
   }
 
+  // Fetch all notes which are shared with user
   @override
   Future<Either<NotesErrors, List<NoteEntity>>> fetchNotesSharedWithMe() async {
     final result = await notesDataSources.fetchNotesSharedWithMe();
@@ -90,12 +93,23 @@ class NotesDataRepositoryImpl implements NotesDomainRepository {
     );
   }
 
+  // Delete a note from DB
   @override
   Future<Either<NotesErrors, void>> deleteNoteFromDb(int noteId) async {
     final result = await notesDataSources.deleteNoteFromDb(noteId);
     return result.fold(
       (failure) => Left(DeleteNoteError(message: failure.toString())),
       (_) => Right(null),
+    );
+  }
+
+  // Delete all notes from db
+  @override
+  Future<Either<NotesErrors, String>> deleteAllNotes() async {
+    final result = await notesDataSources.deleteAllNotes();
+    return result.fold(
+      (failure) => Left(DeleteNoteError(message: failure.message)),
+      (message) => Right(message),
     );
   }
 }

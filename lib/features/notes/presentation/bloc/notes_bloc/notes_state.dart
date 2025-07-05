@@ -14,6 +14,8 @@ final class NotesLoadingState extends NotesNonActionState {
   NotesLoadingState({required this.notePageType});
 }
 
+final class NotesDeletingState extends NotesNonActionState {}
+
 final class NotesLoadingFailedState extends NotesNonActionState {
   final NotePageType notePageType;
 
@@ -83,12 +85,22 @@ final class DeleteNoteForeverFailedState extends NotesActionState {
   DeleteNoteForeverFailedState({required this.message});
 }
 
-final class ShareSuccessState extends NotesActionState {
-
-}
+final class ShareSuccessState extends NotesActionState {}
 
 final class ShareFailedState extends NotesActionState {
   final String message;
 
   ShareFailedState({required this.message});
+}
+
+final class DeleteAllNotesSuccessState extends NotesActionState {
+  final String message;
+
+  DeleteAllNotesSuccessState({required this.message});
+}
+
+final class DeleteAllNotesFailedState extends NotesActionState {
+  final String message;
+
+  DeleteAllNotesFailedState({required this.message});
 }
