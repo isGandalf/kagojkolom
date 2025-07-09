@@ -63,4 +63,13 @@ class UserUsecases {
       (entity) => Right(entity),
     );
   }
+
+
+  Future<Either<ResetPasswordError, void>> resetPassword(String email) async {
+    final result = await userDomainRepository.resetPassword(email);
+    return result.fold(
+      (failure) => Left(ResetPasswordError(message: failure.message)),
+      (_) => Right(null),
+    );
+  }
 }

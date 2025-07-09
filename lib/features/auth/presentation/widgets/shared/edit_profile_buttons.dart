@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/about/about_page.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/my_profile/my_profile_parent.dart';
 import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 
 class EditProfileButtons extends StatelessWidget {
@@ -24,7 +24,9 @@ class EditProfileButtons extends StatelessWidget {
         SizedBox(
           height: 50,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
 
             child: Text(
               'Cancel',
@@ -46,7 +48,9 @@ class EditProfileButtons extends StatelessWidget {
               );
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const AboutPage()),
+                MaterialPageRoute(
+                  builder: (context) => const MyProfileParent(),
+                ),
                 (route) => false,
               );
             },

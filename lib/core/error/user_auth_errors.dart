@@ -41,3 +41,14 @@ class UpdateUserDetails extends UserAuthErrors {
     return message;
   }
 }
+
+class ResetPasswordError extends UserAuthErrors {
+  final String message;
+
+  ResetPasswordError({required this.message});
+
+  @override
+  String getError() {
+    return message;
+  }
+}

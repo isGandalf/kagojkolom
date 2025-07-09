@@ -8,7 +8,7 @@ import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_pa
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/signup/signup_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 import 'package:kagojkolom/shared/widgets/custom_dialog_box_with_one_button.dart';
 import 'package:kagojkolom/shared/widgets/custom_elevated_button.dart';
 import 'package:kagojkolom/shared/widgets/custom_text_form_field.dart';

@@ -23,3 +23,11 @@ final class UpdateUserDetailsFailedActionState extends UserActionStates {
 
   UpdateUserDetailsFailedActionState({required this.message});
 }
+
+final class ResetPasswordEmailSentSuccessEvent extends UserActionStates {}
+
+final class ResetPasswordEmailSentFailedEvent extends UserActionStates {
+  final String message;
+
+  ResetPasswordEmailSentFailedEvent({required this.message});
+}

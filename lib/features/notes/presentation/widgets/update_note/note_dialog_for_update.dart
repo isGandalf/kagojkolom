@@ -4,7 +4,7 @@ import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
 
 class NoteDialogForUpdate extends StatefulWidget {

@@ -12,85 +12,18 @@ class UserHeader extends StatelessWidget {
         if (state is LoggedInUserState) {
           final String firstName = state.userEntity.firstName;
           final String lastName = state.userEntity.lastName;
+          final String profilePictureUrl = state.userEntity.profilePictureUrl;
           return SizedBox(
-            width: double.infinity,
+            height: 50,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: Image.asset(
-                      'lib/assets/images/2151100221.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '$firstName $lastName',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Good Morning',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
+                CircleAvatar(backgroundImage: AssetImage(profilePictureUrl)),
               ],
             ),
           );
         } else {
-          return SizedBox(
-            width: double.infinity,
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: SizedBox(
-                    width: 70,
-                    height: 70,
-                    child: Image.asset(
-                      'lib/assets/images/2151100221.jpg',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-                SizedBox(width: 10),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'No user',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Good Morning',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          );
+          return const SizedBox.shrink();
         }
       },
     );

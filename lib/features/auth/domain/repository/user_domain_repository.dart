@@ -19,4 +19,5 @@ abstract interface class UserDomainRepository {
     String lastName,
     String profilePictureUrl,
   );
+  Future<Either<ResetPasswordError, void>> resetPassword(String email);
 }

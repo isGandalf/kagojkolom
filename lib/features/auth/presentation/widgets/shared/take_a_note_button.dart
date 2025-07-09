@@ -3,17 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/new_note/note_dialog_for_new_note.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 
 class TakeANoteButton extends StatelessWidget {
-  const TakeANoteButton({super.key});
+  final LayoutType? layoutType;
+  const TakeANoteButton({super.key, this.layoutType});
 
   @override
   Widget build(BuildContext context) {
+    final padding = switch (layoutType) {
+      LayoutType.desktop => const EdgeInsets.symmetric(
+        horizontal: 70,
+        vertical: 10,
+      ),
+      LayoutType.tablet => const EdgeInsets.symmetric(
+        horizontal: 50,
+        vertical: 10,
+      ),
+      LayoutType.mobile => const EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical: 10,
+      ),
+      null => const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+    };
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 110.0),
+      padding: padding,
       child: TextButton.icon(
         onPressed: () {
           showDialog(

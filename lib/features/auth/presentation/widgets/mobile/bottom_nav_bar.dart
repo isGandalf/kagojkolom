@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/custom_note_icon.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final void Function(int) onPageSelected;
+  final void Function(NotePageType) onPageSelected;
   const BottomNavBar({super.key, required this.onPageSelected});
 
   @override
@@ -19,7 +20,7 @@ class BottomNavBar extends StatelessWidget {
               children: [
                 CustomNoteIcon(
                   onPressed: () {
-                    onPageSelected(0);
+                    onPageSelected(NotePageType.myNotes);
                   },
                   icon: Icon(Icons.notes),
                 ),
@@ -27,7 +28,7 @@ class BottomNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 16.0),
                   child: CustomNoteIcon(
                     onPressed: () {
-                      onPageSelected(1);
+                      onPageSelected(NotePageType.sharedWithMe);
                     },
                     icon: Icon(Icons.share),
                   ),
@@ -43,16 +44,16 @@ class BottomNavBar extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 16.0),
                   child: CustomNoteIcon(
                     onPressed: () {
-                      onPageSelected(2);
+                      onPageSelected(NotePageType.favourites);
                     },
-                    icon: Icon(Icons.delete_forever),
+                    icon: Icon(Icons.favorite_outlined),
                   ),
                 ),
                 CustomNoteIcon(
                   onPressed: () {
-                    print('Settings');
+                    onPageSelected(NotePageType.trash);
                   },
-                  icon: Icon(Icons.settings),
+                  icon: Icon(Icons.delete_forever),
                 ),
               ],
             ),

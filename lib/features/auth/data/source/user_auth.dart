@@ -185,4 +185,35 @@ class UserAuth {
       );
     }
   }
+
+  Future<Either<ResetPasswordError, void>> resetPassword(String email) async {
+    try {
+      final user = currentUser;
+      if (user == null) {
+        return Left(ResetPasswordError(message: 'No logged in user'));
+      }
+
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+      return Right(null);
+    } on FirebaseAuthException catch (e) {
+      return Left(
+        ResetPasswordError(
+          message: 'Firebase exception occured while resetting password --> $e',
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(
+        ResetPasswordError(
+          message: 'An error occured while resetting password --> $e',
+        ),
+      );
+    } catch (e) {
+      return Left(
+        ResetPasswordError(
+          message:
+              'An unexpected error occured while resetting password --> $e',
+        ),
+      );
+    }
+  }
 }

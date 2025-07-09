@@ -20,3 +20,9 @@ final class UpdateUserDetailsButtonPressedEvent extends UserEvent {
     required this.profilePictureUrl,
   });
 }
+
+final class ResetPasswordButtonPressedEvent extends UserEvent {
+  final String email;
+
+  ResetPasswordButtonPressedEvent({required this.email});
+}

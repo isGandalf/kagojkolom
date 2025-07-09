@@ -5,7 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/domain/usecases/notes_usecases.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 import 'package:meta/meta.dart';
 
 part 'notes_event.dart';
@@ -52,14 +52,6 @@ class NotesBloc extends Bloc<NotesEvent, NotesState> {
             myNotes.where((note) => note.isFavourite == true).toList();
         final trashNotes =
             allNotes.where((note) => note.isDeleted == true).toList();
-        // print(myNotes.length);
-        // print(favNotes.length);
-        // print(trashNotes.length);
-        // allNotes.forEach((note) {
-        //   print(
-        //     'Note ${note.noteId}: isFavourite=${note.isFavourite}, isDeleted=${note.isDeleted}',
-        //   );
-        // });
         emit(
           NotesLoadedState(
             notePageType: NotePageType.myNotes,

@@ -68,4 +68,13 @@ class UserDataRepository implements UserDomainRepository {
       (model) => Right(model.toEntity()),
     );
   }
+
+  @override
+  Future<Either<ResetPasswordError, void>> resetPassword(String email) async {
+    final result = await userAuth.resetPassword(email);
+    return result.fold(
+      (failure) => Left(ResetPasswordError(message: failure.message)),
+      (_) => Right(null),
+    );
+  }
 }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/homepage/notes_grid_layout.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/new_layout/desktop_left_column.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/take_a_note_button.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/note_page_type.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/tablet_desktop/notes_grid_view.dart';
+import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view_parent.dart';
+import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid.dart';
+import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 
@@ -19,6 +23,23 @@ class HomepageDesktop extends StatefulWidget {
 class _HomepageDesktopState extends State<HomepageDesktop> {
   late TextEditingController searchController;
 
+  List<NoteEntity> _getNotes(NotesLoadedState state) {
+    switch (state.notePageType) {
+      case NotePageType.myNotes:
+        return state.myNotes;
+      case NotePageType.favourites:
+        return state.favNotes;
+      case NotePageType.trash:
+        return state.trashNotes;
+      case NotePageType.sharedWithMe:
+        return state.sharedWithMeNotes;
+    }
+  }
+
+  void _searchKeypress() {
+    setState(() {});
+  }
+
   @override
   void initState() {
     super.initState();
@@ -26,11 +47,13 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
     context.read<NotesBloc>().add(
       NotePageInitialEvent(notePageType: NotePageType.myNotes),
     );
+    searchController.addListener(_searchKeypress);
   }
 
   @override
   void dispose() {
     searchController.dispose();
+    searchController.removeListener(_searchKeypress);
     super.dispose();
   }
 
@@ -50,10 +73,48 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
                 SizedBox(height: 30),
 
                 // Take a note button
-                TakeANoteButton(),
+                TakeANoteButton(layoutType: LayoutType.desktop),
 
                 // Notes Grid
-                NotesGrid(searchController: searchController),
+                Expanded(
+                  child: BlocConsumer<NotesBloc, NotesState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      print(state.runtimeType);
+                      if (state is NotesLoadedState) {
+                        final notes = _getNotes(state);
+                        final searchText = searchController.text.toLowerCase();
+                        final filteredNotes =
+                            searchText.isEmpty
+                                ? notes
+                                : notes
+                                    .where(
+                                      (note) =>
+                                          note.noteTitle.contains(searchText) ||
+                                          note.noteContent.contains(searchText),
+                                    )
+                                    .toList();
+                        return NotesGridLayout(
+                          layoutType: LayoutType.desktop,
+                          noteEntityList: filteredNotes,
+                          notePageType: state.notePageType,
+                        );
+                      } else if (state is NotesLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        );
+                      } else if (state is NotesLoadingFailedState) {
+                        return const Center(
+                          child: Text(
+                            'Failed to load notes. Please check internet connection',
+                          ),
+                        );
+                      } else {
+                        return const SizedBox.shrink();
+                      }
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -62,176 +123,3 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:kagojkolom/core/global/logger.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/all_notes_page.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/desktop/desktop_left_column.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/favourite_page.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_action_button_options.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/shared_with_me_page.dart';
-// import 'package:kagojkolom/features/auth/presentation/widgets/shared/sign_out_page.dart';
-// import 'package:kagojkolom/features/calendar/calendar_widget_page.dart';
-// import 'package:kagojkolom/features/notes/presentation/widgets/middle_column_note_list.dart';
-// import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
-// import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-// import 'package:kagojkolom/features/notes/presentation/pages/notes/notes_desktop.dart';
-// import 'package:kagojkolom/features/notes/presentation/widgets/trash_notes.dart';
-
-// class HomepageDesktop extends StatefulWidget {
-//   const HomepageDesktop({super.key});
-
-//   @override
-//   State<HomepageDesktop> createState() => _HomepageDesktopState();
-// }
-
-// class _HomepageDesktopState extends State<HomepageDesktop> {
-//   // Variables to store a note from different notelist (lists: allNotes, fav, sharedWithMe, deleted)
-//   NoteEntity? selectedFromAllNotes;
-//   NoteEntity? selectedFromFavNotes;
-//   NoteEntity? selectedFromSharedWithMe;
-//   NoteEntity? selectedFromDeletedNotes;
-
-
-//   // Variable to store a specfic noteList. Initially on apphold, list 0 will be build which is allNotes.
-//   late int selectedPage;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     selectedPage = 0;
-//     context.read<NotesBloc>().add(NotePageInitialEvent());
-//   }
-
-//   void noteSelectionFromAllNotes(NoteEntity note) {
-//     setState(() {
-//       selectedFromAllNotes = note;
-//     });
-//   }
-
-  
-
-//   void pageSelect(int index) {
-//     setState(() {
-//       selectedPage = index;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<NotesBloc, NotesState>(
-//       builder: (context, state) {
-//         logger.d(state.runtimeType);
-//         // loading state
-//         if (state is NotesLoadingState) {
-//           return Scaffold(
-//             appBar: CustomAppBar(),
-//             body: Center(child: CircularProgressIndicator.adaptive()),
-//           );
-//         }
-//         // logged state
-//         else if (state is NotesLoadedState) {
-//           final allNotes = state.allNotes;
-
-//           // load left column pages
-//           List<Widget> pages = [
-//             AllNotesPage(
-//               noteEntityList: allNotes,
-//               onSelect: noteSelectionFromAllNotes,
-//               selectedNote: selectedFromAllNotes,
-//             ),
-//             FavouritePage(),
-//             SharedWithMePage(),
-//             CalendarWidgetPage(),
-//             TrashNotes(),
-//             SignOutPage(),
-//           ];
-
-//           //
-
-//           return Scaffold(
-//             appBar: CustomAppBar(),
-//             body: Row(
-//               children: [
-//                 // left column
-//                 DesktopLeftColumn(
-//                   onPageSelect: pageSelect,
-//                   selectedPage: selectedPage,
-//                 ),
-//                 VerticalDivider(thickness: 1, width: 0),
-
-//                 // middle column
-//                 SizedBox(
-//                   width: 400,
-//                   child: pages[selectedPage],
-
-//                   // MiddleColumnNoteList(
-//                   //   noteEntityList: allNotes,
-//                   //   selectedNote: selectedNote,
-//                   //   onSelect: noteSelection,
-//                   // ),
-//                 ),
-//                 VerticalDivider(thickness: 1, width: 1),
-
-//                 // right column (notes view)
-//                 if (selectedPage == 0) {
-                  
-//                 }
-//                 NotesDesktop(selectedNote: selectedFromAllNotes),
-//               ],
-//             ),
-//             floatingActionButton: FloatingActionButtonOptions(),
-//           );
-//         }
-//         // failed state
-//         else {
-//           return Scaffold(
-//             appBar: CustomAppBar(),
-//             body: Center(
-//               child: Column(children: [Text('Failed to load notes')]),
-//             ),
-//           );
-//         }
-//       },
-//     );
-//   }
-// }

@@ -21,6 +21,7 @@ class EditUserName extends StatelessWidget {
       children: [
         Expanded(
           child: TextField(
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
             controller: _firstName,
             decoration: InputDecoration(
               fillColor:
@@ -33,6 +34,7 @@ class EditUserName extends StatelessWidget {
         SizedBox(width: 10),
         Expanded(
           child: TextField(
+            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
             controller: _lastName,
             decoration: InputDecoration(
               fillColor:
