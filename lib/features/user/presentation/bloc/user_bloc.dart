@@ -59,11 +59,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) async {
     emit(UserLoadingState());
+    print('clicked reset password');
     final result = await userUsecases.resetPassword(event.email);
     return result.fold(
-      (failure) =>
-          emit(ResetPasswordEmailSentFailedEvent(message: failure.message)),
+      (failure) {
+        print('failure -> ${failure.message}');
+        emit(ResetPasswordEmailSentFailedEvent(message: failure.message));
+      },
       (_) {
+        print('Success');
         emit(ResetPasswordEmailSentSuccessEvent());
         emit(LoggedInUserState(userEntity: _currentUser!));
       },

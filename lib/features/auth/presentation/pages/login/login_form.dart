@@ -6,6 +6,7 @@ import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/homepage_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
+import 'package:kagojkolom/features/auth/presentation/pages/reset_password/reset_password_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/signup/signup_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
@@ -100,19 +101,20 @@ class _LoginFormState extends State<LoginForm> {
                             'Your thoughts, neatly penned',
                             style: TextStyle(fontSize: 15),
                           ),
-                          SizedBox(height: 40),
+                          const SizedBox(height: 40),
                           CustomTextFormField(
                             hintText: 'Email',
                             controller: _emailController,
-                            disabled: isLoading,
+                            disabled: isLoading, isObscure: false,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           CustomTextFormField(
                             hintText: 'Password',
                             controller: _passwordController,
-                            disabled: isLoading,
+                            disabled: isLoading, isObscure: true,
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
+
                           SizedBox(
                             width: double.infinity,
                             height: 50,
@@ -129,7 +131,36 @@ class _LoginFormState extends State<LoginForm> {
                               isLoading: isLoading,
                             ),
                           ),
-                          SizedBox(height: 30),
+                          const SizedBox(height: 30),
+                          Text.rich(
+                            TextSpan(
+                              text: 'Forgot password? ',
+                              children: <InlineSpan>[
+                                TextSpan(
+                                  mouseCursor: SystemMouseCursors.click,
+                                  recognizer:
+                                      TapGestureRecognizer()
+                                        ..onTap = () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) =>
+                                                      const ResetPasswordParent(),
+                                            ),
+                                          );
+                                        },
+                                  text: 'Click here',
+                                  style: const TextStyle(
+                                    color: AppColorsCommon.primaryBlue,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+
                           Text.rich(
                             TextSpan(
                               text: 'Don\'t have an account?',

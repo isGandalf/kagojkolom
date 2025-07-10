@@ -115,10 +115,9 @@ class _ShareWithState extends State<ShareWith> {
       title: Text('Share'),
       content: SizedBox(
         width: 500,
-        child: CustomTextFormField(
-          hintText: 'Email to share with',
+        child: TextField(
+          decoration: InputDecoration(hintText: 'Email to share with'),
           controller: _emailController,
-          disabled: false,
         ),
       ),
       actionsPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

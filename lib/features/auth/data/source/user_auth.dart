@@ -188,11 +188,6 @@ class UserAuth {
 
   Future<Either<ResetPasswordError, void>> resetPassword(String email) async {
     try {
-      final user = currentUser;
-      if (user == null) {
-        return Left(ResetPasswordError(message: 'No logged in user'));
-      }
-
       await firebaseAuth.sendPasswordResetEmail(email: email);
       return Right(null);
     } on FirebaseAuthException catch (e) {

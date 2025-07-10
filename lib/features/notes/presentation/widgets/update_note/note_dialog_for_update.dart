@@ -73,8 +73,9 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
         }
       },
       child: Dialog(
+        insetPadding: const EdgeInsets.all(10),
         child: Container(
-          width: 700,
+          width: 750,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -127,6 +128,7 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
                         currentPage = state.notePageType;
                       }
 
+                      // Favourite button
                       return IconButton(
                         onPressed: () {
                           context.read<NotesBloc>().add(
@@ -143,7 +145,7 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
                       );
                     },
                   ),
-                  const SizedBox(width: 20),
+                  //const SizedBox(width: 10),
 
                   // three dot menu
                   ThreeDotMenu(
@@ -151,37 +153,44 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
                     notePageType: currentPage,
                   ),
 
-                  const SizedBox(width: 20),
+                  const SizedBox(width: 10),
 
                   // close button
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      'Close',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
                   const SizedBox(width: 10),
 
                   // save button
-                  ElevatedButton(
-                    onPressed: () {
-                      _updateNote();
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        _updateNote();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(width: 10),
                 ],
               ),
             ],

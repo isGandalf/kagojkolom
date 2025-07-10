@@ -39,7 +39,7 @@ class AppBarProfileSection extends StatelessWidget {
                 child: Text(
                   firstName,
                   overflow: TextOverflow.clip,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
               SizedBox(width: 20),
@@ -60,6 +60,4 @@ class AppBarProfileSection extends StatelessWidget {
       ),
     );
   }
-
-  
 }

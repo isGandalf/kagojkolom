@@ -23,7 +23,7 @@ ElevatedButtonThemeData elevatedButtonThemeData = ElevatedButtonThemeData(
   style: ElevatedButton.styleFrom(
     backgroundColor: AppColorsDark.buttonColor,
     foregroundColor: AppColorsDark.textColor,
-    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   ),
 );

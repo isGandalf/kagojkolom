@@ -11,6 +11,15 @@ class ButtonForNewNote extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(onPressed: onTap, child: Text(buttonName));
+    return SizedBox(
+      height: 50,
+      child: ElevatedButton(
+        onPressed: onTap,
+        child: Text(
+          buttonName,
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+        ),
+      ),
+    );
   }
 }

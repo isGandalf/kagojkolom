@@ -63,7 +63,7 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
       },
       child: Dialog(
         child: Container(
-          width: 600,
+          width: 750,
           padding: EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),

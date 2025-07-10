@@ -139,9 +139,10 @@ class SettingsSection extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SizedBox(
+                                  Expanded(
                                     child: Text(
                                       'Change your password',
+                                      overflow: TextOverflow.visible,
                                       style: TextStyle(fontSize: 16),
                                     ),
                                   ),

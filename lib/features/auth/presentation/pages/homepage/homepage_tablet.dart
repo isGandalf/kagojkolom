@@ -55,69 +55,83 @@ class _HomepageTabletState extends State<HomepageTablet> {
     super.dispose();
   }
 
+  Future<void> _pullRefresh() async {
+    setState(() {
+      context.read<NotesBloc>().add(
+        NotePageInitialEvent(notePageType: NotePageType.myNotes),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    print(width);
     return Scaffold(
       appBar: CustomAppBar(searchController: searchController),
-      body: Row(
-        children: [
-          // Left column icons
-          TabletLeftColumn(),
+      body: RefreshIndicator(
+        onRefresh: _pullRefresh,
+        child: Row(
+          children: [
+            // Left column icons
+            TabletLeftColumn(),
 
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 5),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 5),
 
-                // Take a note button
-                TakeANoteButton(layoutType: LayoutType.tablet),
+                  // Take a note button
+                  TakeANoteButton(layoutType: LayoutType.tablet),
 
-                // Notes Grid
-                Expanded(
-                  child: BlocConsumer<NotesBloc, NotesState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      if (state is NotesLoadedState) {
-                        final notes = _getNotes(state);
-                        final searchText = searchController.text.toLowerCase();
-                        final filteredNotes =
-                            searchText.isEmpty
-                                ? notes
-                                : notes
-                                    .where(
-                                      (note) =>
-                                          note.noteTitle.contains(searchText) ||
-                                          note.noteContent.contains(searchText),
-                                    )
-                                    .toList();
-                        return NotesGridLayout(
-                          layoutType: LayoutType.tablet,
-                          noteEntityList: filteredNotes,
-                          notePageType: state.notePageType,
-                        );
-                      } else if (state is NotesLoadingState) {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      } else if (state is NotesLoadingFailedState) {
-                        return const Center(
-                          child: Text(
-                            'Failed to load notes. Please check internet connection',
-                          ),
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
+                  // Notes Grid
+                  Expanded(
+                    child: BlocConsumer<NotesBloc, NotesState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        if (state is NotesLoadedState) {
+                          final notes = _getNotes(state);
+                          final searchText =
+                              searchController.text.toLowerCase();
+                          final filteredNotes =
+                              searchText.isEmpty
+                                  ? notes
+                                  : notes
+                                      .where(
+                                        (note) =>
+                                            note.noteTitle.contains(
+                                              searchText,
+                                            ) ||
+                                            note.noteContent.contains(
+                                              searchText,
+                                            ),
+                                      )
+                                      .toList();
+                          return NotesGridLayout(
+                            layoutType: LayoutType.tablet,
+                            noteEntityList: filteredNotes,
+                            notePageType: state.notePageType,
+                          );
+                        } else if (state is NotesLoadingState) {
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        } else if (state is NotesLoadingFailedState) {
+                          return const Center(
+                            child: Text(
+                              'Failed to load notes. Please check internet connection',
+                            ),
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

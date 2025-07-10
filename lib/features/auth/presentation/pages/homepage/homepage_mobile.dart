@@ -74,6 +74,14 @@ class _HomepageMobileState extends State<HomepageMobile> {
     });
   }
 
+  Future<void> _pullRefresh() async {
+    setState(() {
+      context.read<NotesBloc>().add(
+        NotePageInitialEvent(notePageType: NotePageType.myNotes),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -81,55 +89,59 @@ class _HomepageMobileState extends State<HomepageMobile> {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                // const UserHeader(),
-                // const SizedBox(height: 20),
-                SearchField(searchController: _searchController),
-                const SizedBox(height: 10),
-                Expanded(
-                  child: BlocConsumer<NotesBloc, NotesState>(
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      if (state is NotesLoadingState) {
-                        print(state.runtimeType);
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      } else if (state is NotesLoadingFailedState) {
-                        return const Center(
-                          child: Text(
-                            'Failed to load notes. Please check internet connection',
-                          ),
-                        );
-                      } else if (state is NotesLoadedState) {
-                        final notes = _getNotes(state, state.notePageType);
-                        final searchText = _searchController.text.toLowerCase();
-                        final filteredNotes =
-                            notes
-                                .where(
-                                  (note) =>
-                                      note.noteTitle.contains(searchText) ||
-                                      note.noteContent.contains(searchText),
-                                )
-                                .toList();
+        body: RefreshIndicator(
+          onRefresh: _pullRefresh,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  // const UserHeader(),
+                  // const SizedBox(height: 20),
+                  SearchField(searchController: _searchController),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: BlocConsumer<NotesBloc, NotesState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
+                        if (state is NotesLoadingState) {
+                          print(state.runtimeType);
+                          return const Center(
+                            child: CircularProgressIndicator.adaptive(),
+                          );
+                        } else if (state is NotesLoadingFailedState) {
+                          return const Center(
+                            child: Text(
+                              'Failed to load notes. Please check internet connection',
+                            ),
+                          );
+                        } else if (state is NotesLoadedState) {
+                          final notes = _getNotes(state, state.notePageType);
+                          final searchText =
+                              _searchController.text.toLowerCase();
+                          final filteredNotes =
+                              notes
+                                  .where(
+                                    (note) =>
+                                        note.noteTitle.contains(searchText) ||
+                                        note.noteContent.contains(searchText),
+                                  )
+                                  .toList();
 
-                        return NotesGridLayout(
-                          layoutType: LayoutType.mobile,
-                          noteEntityList: filteredNotes,
-                          notePageType: state.notePageType,
-                        );
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
+                          return NotesGridLayout(
+                            layoutType: LayoutType.mobile,
+                            noteEntityList: filteredNotes,
+                            notePageType: state.notePageType,
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-              ],
+                  const SizedBox(height: 10),
+                ],
+              ),
             ),
           ),
         ),

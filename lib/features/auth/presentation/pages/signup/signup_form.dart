@@ -110,24 +110,28 @@ class _SignupFormState extends State<SignupForm> {
                             hintText: 'First name',
                             controller: _firstNameController,
                             disabled: isLoading,
+                            isObscure: false,
                           ),
                           SizedBox(height: 20),
                           CustomTextFormField(
                             hintText: 'Last name',
                             controller: _lastNameController,
                             disabled: isLoading,
+                            isObscure: false,
                           ),
                           SizedBox(height: 20),
                           CustomTextFormField(
                             hintText: 'email',
                             controller: _emailController,
                             disabled: isLoading,
+                            isObscure: false,
                           ),
                           SizedBox(height: 20),
                           CustomTextFormField(
                             hintText: 'Password',
                             controller: _passwordController,
                             disabled: isLoading,
+                            isObscure: true,
                           ),
                           SizedBox(height: 20),
                           SizedBox(

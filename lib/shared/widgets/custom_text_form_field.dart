@@ -4,11 +4,12 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
   final bool disabled;
+  final bool isObscure;
   const CustomTextFormField({
     super.key,
     required this.hintText,
     required this.controller,
-    required this.disabled,
+    required this.disabled, required this.isObscure,
   });
 
   @override
@@ -24,6 +25,7 @@ class CustomTextFormField extends StatelessWidget {
       enabled: !disabled,
       style: const TextStyle(fontSize: 18),
       decoration: InputDecoration(hintText: hintText),
+      obscureText: isObscure,
     );
   }
 }

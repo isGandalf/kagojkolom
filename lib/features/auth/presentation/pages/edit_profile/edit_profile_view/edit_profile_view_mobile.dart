@@ -77,95 +77,78 @@ class _EditProfileViewMobileState extends State<EditProfileViewMobile> {
   @override
   Widget build(BuildContext context) {
     final isDarkTheme = Theme.of(context).brightness == Brightness.dark;
-    return Column(
-      children: [
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color:
-                  isDarkTheme
-                      ? AppColorsDark.noteBackgroundColor
-                      : AppColorsLight.noteBackgroundColor,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: BlocConsumer<UserBloc, UserState>(
-                listenWhen: (previous, current) => current is UserActionStates,
-                listener: (context, state) {
-                  if (state is UpdateUserDetailsSuccessActionState) {
-                    updateUserSuccess(context);
-                  }
-                  if (state is UpdateUserDetailsFailedActionState) {
-                    updateUserFailed(context, state);
-                  }
-                },
-                builder: (context, state) {
-                  if (state is LoggedInUserState) {
-                    final firstName = state.userEntity.firstName;
-                    final lastName = state.userEntity.lastName;
+    return Expanded(
+      child: BlocConsumer<UserBloc, UserState>(
+        listenWhen: (previous, current) => current is UserActionStates,
+        listener: (context, state) {
+          if (state is UpdateUserDetailsSuccessActionState) {
+            updateUserSuccess(context);
+          }
+          if (state is UpdateUserDetailsFailedActionState) {
+            updateUserFailed(context, state);
+          }
+        },
+        builder: (context, state) {
+          if (state is LoggedInUserState) {
+            final firstName = state.userEntity.firstName;
+            final lastName = state.userEntity.lastName;
 
-                    // set the data from state to controllers
-                    _firstName.text = firstName;
-                    _lastName.text = lastName;
+            // set the data from state to controllers
+            _firstName.text = firstName;
+            _lastName.text = lastName;
 
-                    // set profilePicture
-                    if (_profilePictureUrl.isEmpty) {
-                      _profilePictureUrl = state.userEntity.profilePictureUrl;
-                    }
+            // set profilePicture
+            if (_profilePictureUrl.isEmpty) {
+              _profilePictureUrl = state.userEntity.profilePictureUrl;
+            }
 
-                    // main column - holds all data on view
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // heading
-                        Text(
-                          'Edit profile',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(height: 25),
+            // main column - holds all data on view
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 20),
+                // heading
+                Text(
+                  'Edit profile',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 25),
 
-                        // Profile picture
-                        EditProfilePicture(
-                          profilePictureUrl: _profilePictureUrl,
-                          onAvatarChanged: _updateProfilePicture,
-                        ),
-                        SizedBox(height: 30),
+                // Profile picture
+                EditProfilePicture(
+                  profilePictureUrl: _profilePictureUrl,
+                  onAvatarChanged: _updateProfilePicture,
+                ),
+                const SizedBox(height: 30),
 
-                        // two text feilds for name
-                        EditUserName(
-                          firstName: _firstName,
-                          isDarkTheme: isDarkTheme,
-                          lastName: _lastName,
-                        ),
-                        SizedBox(height: 30),
+                // two text feilds for name
+                EditUserName(
+                  firstName: _firstName,
+                  isDarkTheme: isDarkTheme,
+                  lastName: _lastName,
+                ),
+                const SizedBox(height: 30),
 
-                        // delete all notes feature
-                        Divider(),
-                        DeleteAllNotes(),
-                        Divider(),
-                        SizedBox(height: 30),
+                // delete all notes feature
+                Divider(),
+                DeleteAllNotes(),
+                Divider(),
+                const SizedBox(height: 30),
 
-                        // buttons to save and cancel
-                        EditProfileButtons(
-                          firstName: _firstName,
-                          lastName: _lastName,
-                          profilePictureUrl: _profilePictureUrl,
-                        ),
-                      ],
-                    );
-                  } else {
-                    return SizedBox.shrink();
-                  }
-                },
-              ),
-            ),
-          ),
-        ),
-      ],
+                // buttons to save and cancel
+                EditProfileButtons(
+                  firstName: _firstName,
+                  lastName: _lastName,
+                  profilePictureUrl: _profilePictureUrl,
+                ),
+                const SizedBox(height: 20),
+              ],
+            );
+          } else {
+            return SizedBox.shrink();
+          }
+        },
+      ),
     );
   }
 }
