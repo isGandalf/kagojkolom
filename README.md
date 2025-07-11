@@ -170,6 +170,8 @@ flutter run
 ```
 
 ## 🚀 Future Improvements
+- **Text Editor enchancement**
+  Enhanced text editor to enable stylish or format of a text saved.  
 
 - **Push Notifications with reminders**  
   Create reminders with notification feature
