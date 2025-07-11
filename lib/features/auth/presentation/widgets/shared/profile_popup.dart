@@ -4,7 +4,6 @@ import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/my_profile/my_profile_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/shared/settings_section.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/settings/settings_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/pop_up_options.dart';
 import 'package:popover/popover.dart';

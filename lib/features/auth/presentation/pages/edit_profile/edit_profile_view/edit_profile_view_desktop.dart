@@ -113,7 +113,7 @@ class _EditProfileViewDesktopState extends State<EditProfileViewDesktop> {
                     if (_profilePictureUrl.isEmpty) {
                       _profilePictureUrl = state.userEntity.profilePictureUrl;
                     }
-                    print(' Inside state -- > $_profilePictureUrl');
+                    //print(' Inside state -- > $_profilePictureUrl');
 
                     // main column - holds all data on view
                     return Column(

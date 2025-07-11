@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/desktop_left_column_option.dart';
 
 // class DesktopLowerWidgetsGroup extends StatelessWidget {
 //   final void Function(int) onPageSelect;

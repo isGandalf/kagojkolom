@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:kagojkolom/core/error/notes_errors.dart';
-import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/domain/repository/notes_domain_repository.dart';
 

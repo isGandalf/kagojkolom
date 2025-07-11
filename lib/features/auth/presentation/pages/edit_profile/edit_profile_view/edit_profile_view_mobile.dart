@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagojkolom/core/theme/app_colors_dark.dart';
-import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_buttons.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_profile_picture.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/edit_user_name.dart';

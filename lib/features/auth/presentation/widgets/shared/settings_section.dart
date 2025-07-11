@@ -5,7 +5,6 @@ import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/core/theme/theme_provider.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_for_about_setting.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/reset_password_alert_box.dart';
 import 'package:kagojkolom/features/user/presentation/bloc/user_bloc.dart';
 import 'package:provider/provider.dart';

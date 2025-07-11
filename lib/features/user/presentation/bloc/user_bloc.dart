@@ -1,7 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dartz/dartz.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/auth/domain/entity/user_entity.dart';
 import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
@@ -59,15 +60,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) async {
     emit(UserLoadingState());
-    print('clicked reset password');
+    //print('clicked reset password');
     final result = await userUsecases.resetPassword(event.email);
     return result.fold(
       (failure) {
-        print('failure -> ${failure.message}');
+        //print('failure -> ${failure.message}');
         emit(ResetPasswordEmailSentFailedEvent(message: failure.message));
       },
       (_) {
-        print('Success');
+        //print('Success');
         emit(ResetPasswordEmailSentSuccessEvent());
         emit(LoggedInUserState(userEntity: _currentUser!));
       },

@@ -4,17 +4,11 @@ import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/notes_grid_layout.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/mobile/bottom_nav_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/floating_button.dart';
-import 'package:kagojkolom/features/calendar/calendar_widget_page.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/mobile/notes_deleted.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view_parent.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_mobile.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_shared_with_me.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/new_note/add_new_note_dialog.dart';
 import 'package:kagojkolom/shared/widgets/search_field.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/mobile/user_header.dart';
 
 class HomepageMobile extends StatefulWidget {
   const HomepageMobile({super.key});
@@ -105,7 +99,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
                       listener: (context, state) {},
                       builder: (context, state) {
                         if (state is NotesLoadingState) {
-                          print(state.runtimeType);
+                          //print(state.runtimeType);
                           return const Center(
                             child: CircularProgressIndicator.adaptive(),
                           );
@@ -161,7 +155,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
           onPageSelected: (NotePageType page) {
             setState(() {
               selectedPageType = page;
-              print(selectedPageType);
+             // print(selectedPageType);
               context.read<NotesBloc>().add(
                 NotePageOptionPressedEvent(selectedNotePage: selectedPageType),
               );

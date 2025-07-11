@@ -21,18 +21,6 @@ version: 1.0.0+1
 environment:
   sdk: ^3.7.2
 
-isar:
-    hosted:
-      name: isar
-      url: https://pub.isar-community.dev/
-    version: ^3.0.0
-
-isar_flutter_libs:
-    hosted:
-      name: isar_flutter_libs
-      url: https://pub.isar-community.dev/
-    version: ^3.0.0
-
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
 # consider running `flutter pub upgrade --major-versions`. Alternatively,
@@ -46,13 +34,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
-  build_runner: ^2.4.14
-  path_provider: ^2.1.5
-  intl: ^0.19.0
   logger: ^2.5.0
   dartz: ^0.10.1
   flutter_bloc: ^9.1.1
-  firebase_analytics: ^11.4.5
   firebase_auth: ^5.5.3
   firebase_core: ^3.13.0
   cloud_firestore: ^5.6.7
@@ -69,11 +53,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  isar_generator:
-    hosted:
-      name: isar_generator
-      url: https://pub.isar-community.dev/
-    version: ^3.0.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

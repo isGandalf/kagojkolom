@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/notes_grid_layout.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/desktop/new_layout/desktop_left_column.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/take_a_note_button.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 
@@ -80,7 +76,7 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
                   child: BlocConsumer<NotesBloc, NotesState>(
                     listener: (context, state) {},
                     builder: (context, state) {
-                      print(state.runtimeType);
+                      //print(state.runtimeType);
                       if (state is NotesLoadedState) {
                         final notes = _getNotes(state);
                         final searchText = searchController.text.toLowerCase();

@@ -54,7 +54,7 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
         ),
       );
     } else {
-      print('No changes');
+      //print('No changes');
     }
   }
 
@@ -68,7 +68,7 @@ class _NoteDialogState extends State<NoteDialogForUpdate> {
         if (didPop) {
           _updateNote();
         } else {
-          print('Pop failed during update');
+          //print('Pop failed during update');
           return;
         }
       },

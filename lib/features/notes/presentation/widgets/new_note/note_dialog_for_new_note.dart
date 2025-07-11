@@ -57,7 +57,7 @@ class _NoteDialogForNewNoteState extends State<NoteDialogForNewNote> {
         if (didPop) {
           await _saveNote();
         } else {
-          print('Error auto saving');
+          //print('Error auto saving');
           return;
         }
       },

@@ -10,7 +10,6 @@ import 'package:kagojkolom/features/auth/data/source/user_auth.dart';
 import 'package:kagojkolom/features/auth/domain/usecases/user_usecases.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:kagojkolom/features/auth/presentation/bloc/signup_bloc/signup_bloc.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/my_profile/my_profile_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/splashscreen/splashscreen_parent.dart';
 import 'package:kagojkolom/features/notes/data/repository/notes_data_repository.dart';

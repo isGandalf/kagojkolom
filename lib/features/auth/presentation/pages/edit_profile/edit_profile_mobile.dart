@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/edit_profile/edit_profile_view/edit_profile_view_mobile.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/edit_profile/edit_profile_view/edit_profile_view_parent.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/appbar_for_about_setting.dart';
 

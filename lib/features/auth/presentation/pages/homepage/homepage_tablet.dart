@@ -5,10 +5,7 @@ import 'package:kagojkolom/features/auth/presentation/pages/homepage/notes_grid_
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/take_a_note_button.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view_parent.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/custom_app_bar.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/tablet/new_layout/tablet_left_column.dart';
 

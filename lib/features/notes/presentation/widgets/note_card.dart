@@ -7,9 +7,7 @@ import 'package:kagojkolom/features/notes/presentation/widgets/favourite_icon.da
 import 'package:kagojkolom/features/notes/presentation/widgets/note_dialog_for_view.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/update_note/note_dialog_for_update.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
-import 'package:kagojkolom/features/notes/presentation/pages/notes/legacy/notes_grid_view.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/three_dot_menu.dart';
-import 'package:popover/popover.dart';
 
 class NoteCard extends StatelessWidget {
   const NoteCard({super.key, required this.note, required this.notePageType});

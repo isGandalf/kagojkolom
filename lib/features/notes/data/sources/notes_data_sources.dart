@@ -8,7 +8,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:kagojkolom/core/error/notes_errors.dart';
-import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/data/models/note_model.dart';
 
 class NotesDataSources {
@@ -315,7 +314,7 @@ class NotesDataSources {
             .collection('notes')
             .doc(noteId.toString())
             .update({'isFavourite': !note.isFavourite});
-        print('fav - success');
+        // print('fav - success');
         return Right(null);
       } else {
         return Left(UpdateNoteError(message: 'No note found with --> $noteId'));
@@ -397,7 +396,7 @@ class NotesDataSources {
               .map((notes) => NoteModel.fromJson(notes.data()))
               .toList();
 
-      print('First shared note Datasource --> ${noteList.first.noteTitle}');
+      // print('First shared note Datasource --> ${noteList.first.noteTitle}');
 
       return Right(noteList);
     } on FirebaseException catch (e) {

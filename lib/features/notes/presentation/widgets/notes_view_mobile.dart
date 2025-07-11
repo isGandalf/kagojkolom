@@ -30,7 +30,6 @@ class _NotesState extends State<NotesViewMobile> {
 
   @override
   Widget build(BuildContext context) {
-    final bool darktheme = Theme.of(context).brightness == Brightness.dark;
     sortNoteList(widget.noteList);
     return ListView.builder(
       itemCount: widget.noteList.length,

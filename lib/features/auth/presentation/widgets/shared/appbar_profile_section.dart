@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:kagojkolom/core/theme/app_colors_common.dart';
-import 'package:kagojkolom/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/my_profile/my_profile_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/pages/login/login_parent.dart';
-import 'package:kagojkolom/features/auth/presentation/widgets/shared/settings_section.dart';
 import 'package:kagojkolom/features/auth/presentation/widgets/shared/profile_popup.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/pop_up_options.dart';
-import 'package:popover/popover.dart';
 
 class AppBarProfileSection extends StatelessWidget {
   const AppBarProfileSection({
@@ -34,7 +26,7 @@ class AppBarProfileSection extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               Expanded(
                 child: Text(
                   firstName,
@@ -42,7 +34,7 @@ class AppBarProfileSection extends StatelessWidget {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                 ),
               ),
-              SizedBox(width: 20),
+              const SizedBox(width: 10),
               SizedBox(
                 height: 40,
                 width: 40,

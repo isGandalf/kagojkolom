@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
-import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
-import 'package:kagojkolom/core/theme/app_colors_dark.dart';
-import 'package:kagojkolom/core/theme/app_colors_light.dart';
 import 'package:kagojkolom/features/auth/presentation/pages/homepage/layout_type.dart';
-import 'package:kagojkolom/features/notes/presentation/bloc/notes_bloc/notes_bloc.dart';
 import 'package:kagojkolom/features/notes/presentation/widgets/new_note/note_dialog_for_new_note.dart';
-import 'package:kagojkolom/features/notes/presentation/widgets/note_page_type.dart';
 
 class TakeANoteButton extends StatelessWidget {
   final LayoutType? layoutType;

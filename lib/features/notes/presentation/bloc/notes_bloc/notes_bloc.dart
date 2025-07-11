@@ -1,7 +1,8 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:kagojkolom/core/global/logger.dart';
 import 'package:kagojkolom/features/notes/domain/entity/note_entity.dart';
 import 'package:kagojkolom/features/notes/domain/usecases/notes_usecases.dart';
