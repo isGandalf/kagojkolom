@@ -54,8 +54,15 @@ KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flu
 - **Create, Edit, Delete Notes**  
   Add new note, update them, or delete them as needed with a smooth and intuitive UI. Deleted notes will be moved to trash. Users have the ability to permanently delete in Delete all notes section.
 
+- **Search Notes**  
+  A simple search bar allows user to search for any text from the saved notes. The search bar will consider the notes available in the current window and search in its title and content for relevant notes.
+
 - **Share Notes**  
   Share notes with others via email. After creating a note, tap the share icon to send it to anyone using their email address. The shared user only have view access.
+
+- **My Profile**  
+  User can edit name and profile avatar from `My Profile` dropdown menu. Tap on the profile picture to navigate.
+ 
 
 ## 🛠 Technologies Used  
 
