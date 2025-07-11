@@ -7,9 +7,9 @@ KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flu
   <tr>
     <td align="center">
       <img src="https://github.com/isGandalf/kagojkolom/blob/main/screenshots/login.png" width="450"><br>
-      <p align="center"><small>login</small></p>
+      <p align="center"><small>Login</small></p>
     </td>
-     <td align="center">
+    <td align="center">
       <img src="https://github.com/isGandalf/kagojkolom/blob/main/screenshots/homepage.png" width="450"><br>
       <p align="center"><small>Homepage</small></p>
     </td>
@@ -17,10 +17,12 @@ KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flu
       <img src="https://github.com/isGandalf/kagojkolom/blob/main/screenshots/mob-1.jpg" width="450"><br>
       <p align="center"><small>Mobile view</small></p>
     </td>
-     <td align="center">
+    <td align="center">
       <img src="https://github.com/isGandalf/kagojkolom/blob/main/screenshots/mob-2.jpg" width="450"><br>
       <p align="center"><small>Mobile option</small></p>
     </td>
+  </tr>
+  <tr>
     <td align="center">
       <img src="https://github.com/isGandalf/kagojkolom/blob/main/screenshots/lightTheme.png" width="450"><br>
       <p align="center"><small>Light theme</small></p>
@@ -39,6 +41,7 @@ KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flu
     </td>
   </tr>
 </table>
+
 
 ## ✨ Features
 
