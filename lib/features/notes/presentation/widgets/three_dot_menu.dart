@@ -58,7 +58,6 @@ class ThreeDotMenu extends StatelessWidget {
                   ),
                 );
                 Navigator.of(context).pop();
-                Navigator.of(context).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                     backgroundColor: AppColorsCommon.primaryBlue,
