@@ -2,6 +2,11 @@
 
 KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flutter. It helps users to note down their thought in a simple, hasslefree way. The app draws its inspiration from Google Keep. The app is responsive allowing users to run it on desktop, tablet and mobile platforms. 
 
+### 📦 Release Build
+
+You can download the latest release build from the link below:
+[⬇️ Download Release Build](https://drive.google.com/uc?export=download&id=1yR8XFhtdGEXuZw7o19jztgWx6FTRaq5K)
+
 ## Demo and screenshots
 <table align="center" style="border-collapse: collapse;">
   <tr>
