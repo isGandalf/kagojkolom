@@ -9,6 +9,9 @@ class EditProfileParent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveLayout(mobileScaffold: const EditProfileMobile(), tabletScaffold: const EditProfileTablet(), desktopScaffold: const EditProfileDesktop(),);
+    return ResponsiveLayout(
+      mobileScaffold: const EditProfileMobile(),
+      tabletScaffold: const EditProfileTablet(),
+      desktopScaffold: const EditProfileDesktop());
   }
 }
