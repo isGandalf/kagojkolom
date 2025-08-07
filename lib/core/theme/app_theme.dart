@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kagojkolom/core/theme/app_colors_common.dart';
 import 'package:kagojkolom/core/theme/app_colors_dark.dart';
 import 'package:kagojkolom/core/theme/app_colors_light.dart';
-import 'package:kagojkolom/shared/widgets/dot_indicator.dart';
 
 const OutlineInputBorder borderDark = OutlineInputBorder(
   borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -78,15 +77,6 @@ final ThemeData darkTheme = ThemeData(
     backgroundColor: AppColorsDark.drawerBackgroundColor,
   ),
   elevatedButtonTheme: elevatedButtonThemeData,
-  tabBarTheme: TabBarThemeData(
-    labelColor: AppColorsDark.tabLabelTextColorSelected,
-    unselectedLabelColor: AppColorsDark.tabLabelTextColorUnselected,
-    labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-    unselectedLabelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-    dividerHeight: 0,
-    tabAlignment: TabAlignment.start,
-    indicator: DotIndicator(color: AppColorsDark.tabLabelTextColorSelected),
-  ),
   cardTheme: CardThemeData(color: AppColorsDark.noteBackgroundColor),
   bottomAppBarTheme: BottomAppBarTheme(
     color: AppColorsDark.drawerBackgroundColor,
@@ -141,15 +131,6 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: AppColorsLight.drawerBackgroundColor,
   ),
   elevatedButtonTheme: elevatedButtonThemeData,
-  tabBarTheme: TabBarThemeData(
-    labelColor: AppColorsLight.tabLabelTextColorSelected,
-    unselectedLabelColor: AppColorsLight.tabLabelTextColorUnselected,
-    labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-    unselectedLabelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-    dividerHeight: 0,
-    tabAlignment: TabAlignment.start,
-    indicator: DotIndicator(color: AppColorsLight.tabLabelTextColorSelected),
-  ),
   cardTheme: CardThemeData(
     color: AppColorsLight.noteBackgroundColor,
     elevation: 0,
