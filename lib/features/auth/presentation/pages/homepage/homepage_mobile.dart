@@ -117,8 +117,12 @@ class _HomepageMobileState extends State<HomepageMobile> {
                               notes
                                   .where(
                                     (note) =>
-                                        note.noteTitle.contains(searchText) ||
-                                        note.noteContent.contains(searchText),
+                                        note.noteTitle.toLowerCase().contains(
+                                          searchText,
+                                        ) ||
+                                        note.noteContent.toLowerCase().contains(
+                                          searchText,
+                                        ),
                                   )
                                   .toList();
 
@@ -155,7 +159,7 @@ class _HomepageMobileState extends State<HomepageMobile> {
           onPageSelected: (NotePageType page) {
             setState(() {
               selectedPageType = page;
-             // print(selectedPageType);
+              // print(selectedPageType);
               context.read<NotesBloc>().add(
                 NotePageOptionPressedEvent(selectedNotePage: selectedPageType),
               );
