@@ -86,8 +86,12 @@ class _HomepageDesktopState extends State<HomepageDesktop> {
                                 : notes
                                     .where(
                                       (note) =>
-                                          note.noteTitle.contains(searchText) ||
-                                          note.noteContent.contains(searchText),
+                                          note.noteTitle.toLowerCase().contains(
+                                            searchText,
+                                          ) ||
+                                          note.noteContent
+                                              .toLowerCase()
+                                              .contains(searchText),
                                     )
                                     .toList();
                         return NotesGridLayout(
