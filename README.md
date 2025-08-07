@@ -5,7 +5,7 @@ KagojKolom (meaning Paper-Pen) is a simple and efficient note app built with Flu
 ### 📦 Release Build
 
 You can download the latest release build from the link below:
-[⬇️ Download Release Build](https://drive.google.com/uc?export=download&id=1yR8XFhtdGEXuZw7o19jztgWx6FTRaq5K)
+[⬇️ Download Release Build](https://drive.google.com/file/d/14CoalXt3mk6NJjIqb53NMGe8sQTBJbxr/view?usp=sharing)
 
 ## Demo and screenshots
 <table align="center" style="border-collapse: collapse;">
